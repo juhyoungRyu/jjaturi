@@ -1,27 +1,68 @@
 import { useNavigation } from "@react-navigation/core";
+import { AntDesign } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { auth } from "../firebase";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace("Login");
-        console.log("sign out");
-      })
-      .catch((error) => alert(error.message));
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.email}>Email : {auth.currentUser?.email}</Text>
-      <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+      <View style={styles.nav}>
+        <TouchableOpacity>
+          <Text style={styles.title}>JJATURI</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+        <Text style={styles.text}>hello</Text>
+      </ScrollView>
+      <View style={styles.bottom}>
+        <TouchableOpacity>
+          <AntDesign name="home" size={24} color="#000" style={styles.btn} />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <AntDesign
+            name="message1"
+            size={24}
+            color="#000"
+            style={styles.btn}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("out");
+          }}
+        >
+          <AntDesign name="user" size={24} color="#000" style={styles.btn} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -31,28 +72,33 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+  },
+  nav: {
+    justifyContent: "flex-start",
     alignItems: "center",
+    flexDirection: "row",
+    marginTop: 20,
   },
-  button: {
-    backgroundColor: "#0782F9",
-    width: "60%",
+  title: {
+    fontSize: 28,
     padding: 15,
+  },
+  text: {
+    backgroundColor: "#666",
+    color: "#222",
+    textAlign: "center",
+    fontSize: 40,
+  },
+  bottom: {
+    flexDirection: "row",
     alignItems: "center",
-    borderRadius: 15,
-    marginTop: 40,
+    justifyContent: "space-around",
+    textAlign: "center",
+    padding: 10,
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  email: {
-    width: "60%",
-    marginTop: 50,
-    fontSize: 16,
-    fontWeight: "300",
-    padding: 15,
-    borderRadius: 15,
+  btn: {
+    fontSize: 23,
+    marginTop: 14,
+    marginBottom: 14,
   },
 });

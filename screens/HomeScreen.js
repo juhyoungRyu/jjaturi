@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 
 const HomeScreen = () => {
@@ -18,28 +19,17 @@ const HomeScreen = () => {
         <TouchableOpacity>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.plus}>
+          <AntDesign name="pluscircleo" size={24} color="#000"></AntDesign>
+        </TouchableOpacity>
       </View>
       <ScrollView>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
-        <Text style={styles.text}>hello</Text>
+        <View style={styles.product}>
+          <Text>이름</Text>
+          <Text>가격</Text>
+          <Text>이름</Text>
+          <Text>🤍0</Text>
+        </View>
       </ScrollView>
       <View style={styles.bottom}>
         <TouchableOpacity>
@@ -74,19 +64,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   nav: {
-    justifyContent: "flex-start",
-    alignItems: "center",
     flexDirection: "row",
     marginTop: 20,
   },
   title: {
+    justifyContent: "flex-start",
     fontSize: 28,
     padding: 15,
   },
-  text: {
+  product: {
     backgroundColor: "#666",
     color: "#222",
-    textAlign: "center",
+    alignItems: "center",
     fontSize: 40,
   },
   bottom: {
@@ -100,5 +89,12 @@ const styles = StyleSheet.create({
     fontSize: 23,
     marginTop: 14,
     marginBottom: 14,
+  },
+  plus: {
+    flex: 1,
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 25,
   },
 });

@@ -13,13 +13,17 @@ import {
 const HomeScreen = () => {
   const navigation = useNavigation();
 
+  const handlePlus = () => {
+    navigation.replace("plus");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
         <TouchableOpacity>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.plus}>
+        <TouchableOpacity style={styles.plus} onPress={handlePlus}>
           <AntDesign name="pluscircleo" size={24} color="#000"></AntDesign>
         </TouchableOpacity>
       </View>

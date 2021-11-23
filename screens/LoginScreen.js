@@ -66,14 +66,14 @@ const LoginScreen = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>로그인</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={handleSingUp}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>회원가입</Text>
         </TouchableOpacity>
       </View>
     </View>

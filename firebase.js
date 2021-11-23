@@ -1,12 +1,14 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: "AIzaSyDswJiVkLbBHASFcCBnb1w61ihvYiBsMDA",
   authDomain: "jjaturi-d75ad.firebaseapp.com",
@@ -25,5 +27,11 @@ if (firebase.apps.length === 0) {
 
 const app = firebase.app();
 const auth = firebase.auth();
+const firestore = firebase.firestore();
 
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export { firestore };
 export { auth };

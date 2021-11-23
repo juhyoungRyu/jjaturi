@@ -20,10 +20,12 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.blabla.jjaturi",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode":1
     },
     "web": {
       "favicon": "./assets/favicon.png"

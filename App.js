@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignOut from "./screens/SignOut";
+import Plus from "./screens/Plus";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="out"
           component={SignOut}
+        ></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="plus"
+          component={Plus}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

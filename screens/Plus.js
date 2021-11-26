@@ -1,5 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import {
@@ -14,6 +15,7 @@ import {
 } from "react-native";
 
 const Plus = () => {
+  const [photo, setPhoto] = useState("");
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,15 +36,30 @@ const Plus = () => {
       <View style={styles.container}>
         <TextInput style={styles.input} placeholder="title"></TextInput>
         <TextInput style={styles.input} placeholder="price"></TextInput>
+
         <TextInput
           style={styles.inputCon}
           placeholder="content"
           maxLength={100}
           multiline={true}
         ></TextInput>
+        <View style={styles.picker}>
+          <Feather
+            style={styles.camera}
+            name="camera"
+            size={26}
+            color="black"
+          />
+        </View>
+
+        <TouchableOpacity style={{ padding: 40 }}>
+          <Text style={styles.take}>Take a Picture</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.pushBtn}>
           <Text style={styles.pushBtnText}>올리기</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.btnCon}>
           <AntDesign
             name="close"
@@ -104,5 +121,23 @@ const styles = StyleSheet.create({
   btn: {
     fontSize: 30,
     marginBottom: 40,
+  },
+  picker: {
+    backgroundColor: "#cccccc",
+    width: "80%",
+    height: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  camera: {
+    textAlign: "center",
+  },
+  take: {
+    color: "#BA0000",
+    fontSize: 20,
+    marginTop: -10,
+    marginBottom: 10,
   },
 });

@@ -1,6 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import {
   KeyboardAvoidingView,
   StyleSheet,

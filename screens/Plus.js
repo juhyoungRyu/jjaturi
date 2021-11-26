@@ -1,5 +1,6 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
+import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
@@ -12,11 +13,24 @@ import {
   TouchableOpacity,
   BackHandler,
   Alert,
+  Image,
 } from "react-native";
 
 const Plus = () => {
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState(null);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     const backAction = () => {
@@ -31,6 +45,21 @@ const Plus = () => {
     return () => backHandler.remove();
   }, []);
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setPhoto(result.uri);
+    }
+  };
+
   return (
     <View style={{ flex: 3 }}>
       <View style={styles.container}>
@@ -44,15 +73,18 @@ const Plus = () => {
           multiline={true}
         ></TextInput>
         <View style={styles.picker}>
-          <Feather
-            style={styles.camera}
-            name="camera"
-            size={26}
-            color="black"
-          />
+          {photo && <Image source={{ uri: photo }} style={styles.pickSize} />}
+          {photo ? null : (
+            <Feather
+              style={styles.camera}
+              name="camera"
+              size={26}
+              color="black"
+            />
+          )}
         </View>
 
-        <TouchableOpacity style={{ padding: 40 }}>
+        <TouchableOpacity style={{ padding: 40 }} onPress={pickImage}>
           <Text style={styles.take}>Take a Picture</Text>
         </TouchableOpacity>
 
@@ -125,7 +157,7 @@ const styles = StyleSheet.create({
   picker: {
     backgroundColor: "#cccccc",
     width: "80%",
-    height: "20%",
+    height: "30%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
@@ -139,5 +171,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: -10,
     marginBottom: 10,
+  },
+  pickSize: {
+    width: "100%",
+    height: "100%",
+    // resizeMode: "contain",
   },
 });

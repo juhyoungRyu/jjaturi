@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -15,39 +15,44 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const db = firestore;
 
-  const productCon = (
-    <View style={styles.product}>
-      <Image style={styles.thumbnail}></Image>
-      <Text style={styles.name}>피스마이너스원</Text>
-      <Text style={styles.date}>2021년 11월 27일</Text>
-      <Text style={styles.price}>500,000원</Text>
-      <Text style={styles.like}>🤍0</Text>
-    </View>
-  );
-
-  db.collection(productCon)
-    .get()
-    .then((result) => {
-      result.forEach((doc) => {
-        console.log(doc.data());
-      });
-    });
-
   const handlePlus = () => {
     navigation.replace("plus");
+  };
+
+  const ref = () => {
+    firestore
+      .collection("product")
+      .get()
+      .then((res) => {
+        res.forEach((doc) => {
+          const dt = doc.data();
+          console.log(doc.data());
+          console.log(dt.가격);
+          console.log(dt.내용);
+        });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={ref}>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.plus} onPress={handlePlus}>
           <AntDesign name="pluscircleo" size={24} color="#000"></AntDesign>
         </TouchableOpacity>
       </View>
-      <ScrollView>{productCon}</ScrollView>
+      <ScrollView>
+        <View style={styles.product}>
+          <Image style={styles.thumbnail}></Image>
+          <Text style={styles.name}>피스마이너스원</Text>
+          <Text style={styles.date}>2021년 11월 27일</Text>
+          <Text style={styles.price}>500,000원</Text>
+          <Text style={styles.like}>🤍0</Text>
+        </View>
+      </ScrollView>
       <View style={styles.bottom}>
         <TouchableOpacity>
           <AntDesign name="home" size={24} color="#000" style={styles.btn} />

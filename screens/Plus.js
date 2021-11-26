@@ -15,10 +15,19 @@ import {
   Alert,
   Image,
 } from "react-native";
+import { firestore } from "../firebase";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 const Plus = () => {
   const [photo, setPhoto] = useState(null);
   const navigation = useNavigation();
+  const db = firestore;
+
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -60,17 +69,40 @@ const Plus = () => {
     }
   };
 
+  const upload = async () => {
+    await db
+      .collection("product")
+      .add({ 이름: name, 가격: price, 내용: content });
+  };
+
+  const onChangeTitle = (payload) => setName(payload);
+  const onChangePrice = (payload) => setPrice(payload);
+  const onChangeContent = (payload) => setContent(payload);
+
   return (
     <View style={{ flex: 3 }}>
       <View style={styles.container}>
-        <TextInput style={styles.input} placeholder="title"></TextInput>
-        <TextInput style={styles.input} placeholder="price"></TextInput>
+        <TextInput
+          style={styles.input}
+          placeholder="title"
+          onChangeText={onChangeTitle}
+          value={name}
+        ></TextInput>
+        <TextInput
+          style={styles.input}
+          placeholder="price"
+          keyboardType="number-pad"
+          onChangeText={onChangePrice}
+          value={price}
+        ></TextInput>
 
         <TextInput
           style={styles.inputCon}
           placeholder="content"
           maxLength={100}
           multiline={true}
+          onChangeText={onChangeContent}
+          value={content}
         ></TextInput>
         <View style={styles.picker}>
           {photo && <Image source={{ uri: photo }} style={styles.pickSize} />}
@@ -88,7 +120,7 @@ const Plus = () => {
           <Text style={styles.take}>Take a Picture</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.pushBtn}>
+        <TouchableOpacity style={styles.pushBtn} onPress={upload}>
           <Text style={styles.pushBtnText}>올리기</Text>
         </TouchableOpacity>
 

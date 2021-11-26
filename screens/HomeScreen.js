@@ -13,23 +13,26 @@ import { firestore } from "../firebase";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const db = firestore;
+  const [hope, setHope] = useState([]);
+  let save = [];
 
   const handlePlus = () => {
     navigation.replace("plus");
   };
 
-  const ref = () => {
+  useEffect(() => {
+    load();
+  }, []);
+
+  const load = () => {
     firestore
       .collection("product")
       .get()
       .then((res) => {
         res.forEach((doc) => {
-          const dt = doc.data();
-          console.log(doc.data());
-          console.log(dt.가격);
-          console.log(dt.내용);
+          save = [...save, doc.data()];
         });
+        Object(save);
       })
       .catch((error) => console.log(error));
   };
@@ -37,7 +40,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity onPress={ref}>
+        <TouchableOpacity>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.plus} onPress={handlePlus}>
@@ -45,13 +48,9 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <View style={styles.product}>
-          <Image style={styles.thumbnail}></Image>
-          <Text style={styles.name}>피스마이너스원</Text>
-          <Text style={styles.date}>2021년 11월 27일</Text>
-          <Text style={styles.price}>500,000원</Text>
-          <Text style={styles.like}>🤍0</Text>
-        </View>
+        {save.map((value, i) => {
+          <Text key={i}> {value.name} </Text>;
+        })}
       </ScrollView>
       <View style={styles.bottom}>
         <TouchableOpacity>

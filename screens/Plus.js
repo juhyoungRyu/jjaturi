@@ -72,7 +72,7 @@ const Plus = () => {
   const upload = async () => {
     await db
       .collection("product")
-      .add({ 이름: name, 가격: price, 내용: content });
+      .add({ name: name, price: price, content: content });
   };
 
   const onChangeTitle = (payload) => setName(payload);

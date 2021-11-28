@@ -8,6 +8,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignOut from "./screens/SignOut";
 import Plus from "./screens/Plus";
 import SignIn from "./screens/SignIn";
+import test from "./screens/test";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,11 @@ export default function App() {
           name="signIn"
           component={SignIn}
         ></Stack.Screen>
+        {/* <Stack.Screen
+          options={{ headerShown: false }}
+          name="test"
+          component={test}
+        ></Stack.Screen> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

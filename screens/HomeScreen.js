@@ -30,11 +30,18 @@ const HomeScreen = () => {
       .get()
       .then((res) => {
         res.forEach((doc) => {
+          // save = [...save, doc.data()];
           save = [...save, doc.data()];
+          setHope(save);
         });
-        Object(save);
       })
       .catch((error) => console.log(error));
+  };
+
+  const loadFunc = () => {
+    hope.forEach((pd) => {
+      console.log(pd);
+    });
   };
 
   return (
@@ -48,16 +55,20 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {save.map((value, i) => {
-          <Text key={i}> {value.name} </Text>;
-        })}
+        {hope.map((pd, key) => (
+          <View key={key}>
+            <Text>
+              {pd.name} / {pd.price} / {pd.content}
+            </Text>
+          </View>
+        ))}
       </ScrollView>
       <View style={styles.bottom}>
         <TouchableOpacity>
           <AntDesign name="home" size={24} color="#000" style={styles.btn} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => loadFunc()}>
           <AntDesign
             name="message1"
             size={24}

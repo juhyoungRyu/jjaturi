@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -68,10 +67,8 @@ const Plus = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.base64);
       setPhoto(result.uri);
       console.log(photo);
-      console.log(image);
     }
   };
 

@@ -16,6 +16,7 @@ import {
   Image,
 } from "react-native";
 import { firestore } from "../firebase";
+import { storage } from "../firebase";
 import { LogBox } from "react-native";
 
 LogBox.ignoreLogs(["Setting a timer"]);
@@ -28,6 +29,7 @@ const Plus = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState();
 
   useEffect(() => {
     (async () => {
@@ -60,19 +62,39 @@ const Plus = () => {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true,
     });
 
     console.log(result);
 
     if (!result.cancelled) {
+      setImage(result.base64);
       setPhoto(result.uri);
+      console.log(photo);
+      console.log(image);
     }
   };
 
   const upload = async () => {
+    // const storageRef = storage.ref();
+    // const saveR = storageRef.child("image/" + "filename");
+    // const uploding = saveR.put(image);
+
     await db
       .collection("product")
-      .add({ name: name, price: price, content: content });
+      .add({
+        name: name,
+        price: price,
+        content: content,
+        date: new Date(),
+        photo: photo,
+      })
+      .then(() => {
+        navigation.replace("Home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onChangeTitle = (payload) => setName(payload);

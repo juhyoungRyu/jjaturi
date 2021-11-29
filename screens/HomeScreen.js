@@ -57,6 +57,7 @@ const HomeScreen = () => {
       <ScrollView>
         {hope.map((pd, key) => (
           <View key={key}>
+            <Image source={{ uri: pd.photo }} />
             <Text>
               {pd.name} / {pd.price} / {pd.content}
             </Text>

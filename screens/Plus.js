@@ -29,6 +29,7 @@ const Plus = () => {
   const [price, setPrice] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState();
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -73,9 +74,23 @@ const Plus = () => {
   };
 
   const upload = async () => {
-    // const storageRef = storage.ref();
-    // const saveR = storageRef.child("image/" + "filename");
-    // const uploding = saveR.put(image);
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function () {
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GEt", photo, true);
+      xhr.send(null);
+    });
+
+    const ref = storage.ref().child(new Date().toString());
+    const snapshot = ref.put(blob);
+
+    snapshot.on(storage.)
 
     await db
       .collection("product")

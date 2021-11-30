@@ -30,7 +30,7 @@ const app = firebase.app();
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const storage = firebase.storage();
-const tk = firebase.storage.TaskEvent.STATE_CHANGED;
+const tk = firebase.storage.TaskEvent;
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });

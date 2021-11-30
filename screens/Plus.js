@@ -13,23 +13,26 @@ import {
   BackHandler,
   Alert,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { firestore } from "../firebase";
 import { storage } from "../firebase";
 import { LogBox } from "react-native";
+import { tk } from "../firebase";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
 const Plus = () => {
-  const [photo, setPhoto] = useState(null);
   const navigation = useNavigation();
   const db = firestore;
 
+  const [photo, setPhoto] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [content, setContent] = useState("");
-  const [image, setImage] = useState();
   const [uploading, setUploading] = useState(false);
+
+  const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
 
   useEffect(() => {
     (async () => {
@@ -65,11 +68,8 @@ const Plus = () => {
       base64: true,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setPhoto(result.uri);
-      console.log(photo);
     }
   };
 
@@ -83,30 +83,54 @@ const Plus = () => {
         reject(new TypeError("Network request failed"));
       };
       xhr.responseType = "blob";
-      xhr.open("GEt", photo, true);
+      xhr.open("GET", photo, true);
       xhr.send(null);
     });
 
-    const ref = storage.ref().child(new Date().toString());
+    const dn = Date.now();
+
+    const ref = storage.ref().child("image/" + dn);
     const snapshot = ref.put(blob);
 
-    snapshot.on(storage.)
-
-    await db
-      .collection("product")
-      .add({
-        name: name,
-        price: price,
-        content: content,
-        date: new Date(),
-        photo: photo,
-      })
-      .then(() => {
-        navigation.replace("Home");
-      })
-      .catch((error) => {
+    snapshot.on(
+      tk.STATE_CHANGED,
+      () => {
+        setUploading(true);
+      },
+      (error) => {
+        setUploading(false);
         console.log(error);
-      });
+        blob.close();
+        return;
+      },
+      () => {
+        snapshot.snapshot.ref
+          .getDownloadURL()
+          .then(async (url) => {
+            setUploading(false);
+            blob.close();
+            console.log(url);
+            await db
+              .collection("product")
+              .add({
+                name: name,
+                price: price,
+                content: content,
+                date: new Date(),
+                photo: url,
+              })
+              .then(() => {
+                navigation.replace("Home");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    );
   };
 
   const onChangeTitle = (payload) => setName(payload);
@@ -154,9 +178,13 @@ const Plus = () => {
           <Text style={styles.take}>Take a Picture</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.pushBtn} onPress={upload}>
-          <Text style={styles.pushBtnText}>올리기</Text>
-        </TouchableOpacity>
+        {uploading ? (
+          <ActivityIndicator size="large" color="#000" />
+        ) : (
+          <TouchableOpacity style={styles.pushBtn} onPress={upload}>
+            <Text style={styles.pushBtnText}>올리기</Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity style={styles.btnCon}>
           <AntDesign

@@ -57,7 +57,12 @@ const HomeScreen = () => {
       <ScrollView>
         {hope.map((pd, key) => (
           <View key={key}>
-            <Image source={{ uri: pd.photo }} />
+            <Image
+              style={styles.photo}
+              source={{
+                uri: pd.photo,
+              }}
+            />
             <Text>
               {pd.name} / {pd.price} / {pd.content}
             </Text>
@@ -147,5 +152,9 @@ const styles = StyleSheet.create({
   date: {
     color: "blue",
     fontSize: 13,
+  },
+  photo: {
+    width: 200,
+    height: 200,
   },
 });

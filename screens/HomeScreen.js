@@ -56,16 +56,18 @@ const HomeScreen = () => {
       </View>
       <ScrollView>
         {hope.map((pd, key) => (
-          <View key={key}>
+          <View key={key} style={styles.write}>
             <Image
               style={styles.photo}
               source={{
                 uri: pd.photo,
               }}
             />
-            <Text>
-              {pd.name} / {pd.price} / {pd.content}
-            </Text>
+            <View style={styles.writeInner}>
+              <Text style={styles.innerName}>{pd.name}</Text>
+              <Text style={styles.innerPrice}>{pd.price}</Text>
+              <Text style={styles.innerContent}>{pd.content}</Text>
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -155,6 +157,27 @@ const styles = StyleSheet.create({
   },
   photo: {
     width: 200,
-    height: 200,
+    height: 150,
+  },
+  write: {
+    flexDirection: "row",
+    marginTop: 5,
+    // backgroundColor: "red",
+    borderColor: "black",
+    borderWidth: 2,
+    width: "95%",
+  },
+  writeInner: {
+    justifyContent: "space-evenly",
+    marginLeft: 35,
+  },
+  innerName: {
+    fontSize: 20,
+  },
+  innerPrice: {
+    fontSize: 20,
+  },
+  innerContent: {
+    fontSize: 20,
   },
 });

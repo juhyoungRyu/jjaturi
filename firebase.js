@@ -28,6 +28,7 @@ if (firebase.apps.length === 0) {
 
 const app = firebase.app();
 const auth = firebase.auth();
+const authh = firebase.auth;
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 const tk = firebase.storage.TaskEvent;
@@ -40,4 +41,5 @@ export { tk };
 export { firebase };
 export { firestore };
 export { auth };
+export { authh };
 export { storage };

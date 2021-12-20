@@ -54,7 +54,7 @@ const HomeScreen = () => {
           <AntDesign name="pluscircleo" size={24} color="#000"></AntDesign>
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scvcon}>
         {hope.map((pd, key) => (
           <View key={key} style={styles.write}>
             <Image
@@ -65,7 +65,7 @@ const HomeScreen = () => {
             />
             <View style={styles.writeInner}>
               <Text style={styles.innerName}>{pd.name}</Text>
-              <Text style={styles.innerPrice}>{pd.price}</Text>
+              <Text style={styles.innerPrice}>{pd.price}원</Text>
               <Text style={styles.innerContent}>{pd.content}</Text>
             </View>
           </View>
@@ -106,6 +106,8 @@ const styles = StyleSheet.create({
   nav: {
     flexDirection: "row",
     marginTop: 20,
+    borderBottomWidth: 1,
+    borderColor: "grey",
   },
   title: {
     justifyContent: "flex-start",
@@ -156,16 +158,22 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   photo: {
-    width: 200,
-    height: 150,
+    width: 110,
+    height: 110,
+    borderRadius: 15,
+    marginTop: 10,
+    marginBottom: 10,
   },
   write: {
     flexDirection: "row",
     marginTop: 5,
     // backgroundColor: "red",
-    borderColor: "black",
-    borderWidth: 2,
+    borderColor: "grey",
     width: "95%",
+    borderTopWidth: 0,
+    borderBottomWidth: 1,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
   writeInner: {
     justifyContent: "space-evenly",
@@ -175,9 +183,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   innerPrice: {
-    fontSize: 20,
+    fontSize: 12,
   },
   innerContent: {
-    fontSize: 20,
+    fontSize: 10,
+  },
+  scvcon: {
+    alignItems: "center",
   },
 });

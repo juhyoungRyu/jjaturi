@@ -1,22 +1,39 @@
+import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { auth } from "../firebase";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import firebase from "../firebase";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [userName, setUserName] = useState("");
   const [em, setEm] = useState("");
 
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, pw)
-      .then(() => navigation.replace("main"))
+      .then(() => {
+        navigation.replace("Home");
+      })
       .catch((error) => {
         setEm(error.message);
+        console.log(em);
       });
+
+    if (pw.length <= 6) {
+      alert("비밀번호는 최소 6글자 이상이여야 합니다");
+    }
   };
 
   return (
@@ -28,20 +45,43 @@ const SignIn = () => {
           placeholder="이름 (실명)"
           maxLength={4}
           style={styles.input}
+          value={userName}
+          onChangeText={(text) => setUserName(text)}
         />
       </View>
 
       <View style={{ flexDirection: "row", marginBottom: 40 }}>
         <MaterialCommunityIcons name="email-outline" size={24} color="#444" />
-        <TextInput placeholder="이메일" maxLength={40} style={styles.input} />
+        <TextInput
+          placeholder="이메일"
+          maxLength={40}
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
+        />
       </View>
 
-      <View style={{ flexDirection: "row", marginBottom: 80 }}>
+      <View style={{ flexDirection: "row", marginBottom: 50 }}>
         <FontAwesome name="lock" size={24} color="#444" />
-        <TextInput placeholder="비밀번호" maxLength={30} style={styles.input} />
+        <TextInput
+          placeholder="비밀번호"
+          maxLength={30}
+          style={styles.input}
+          value={pw}
+          onChangeText={(text) => setPw(text)}
+          caretHidden={true}
+          secureTextEntry={true}
+        />
       </View>
 
-      <Text style={styles.btn}>계정 생성</Text>
+      <TouchableOpacity
+        onPress={() => {
+          handleSignUp();
+        }}
+      >
+        <Text style={styles.btn}>계정 생성</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -66,12 +106,13 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   btn: {
-    backgroundColor: "blue",
-    color: "white",
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 20,
     width: "55%",
+    color: "white",
+    backgroundColor: "#6a75a3",
     textAlign: "center",
+    fontSize: 20,
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 65,
   },
 });

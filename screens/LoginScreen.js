@@ -25,15 +25,15 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const handleSingUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with : ", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
+  // const handleSingUp = () => {
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((userCredentials) => {
+  //       const user = userCredentials.user;
+  //       console.log("Registered with : ", user.email);
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
   const handleLogin = () => {
     auth
@@ -70,10 +70,11 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={handleSingUp}
-          style={[styles.button, styles.buttonOutline]}
+          onPress={() => {
+            navigation.replace("signIn");
+          }}
         >
-          <Text style={styles.buttonOutlineText}>회원가입</Text>
+          <Text style={styles.wantSignUp}>계정이 있으신가요?</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -126,5 +127,11 @@ const styles = StyleSheet.create({
     color: "#0782F9",
     fontWeight: "700",
     fontSize: 16,
+  },
+  wantSignUp: {
+    color: "#0782F9",
+    fontWeight: "900",
+    fontSize: 15,
+    marginTop: 20,
   },
 });

@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import {
   ScrollView,
@@ -14,6 +16,8 @@ import { firestore } from "../firebase";
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [hope, setHope] = useState([]);
+  const [modalSet, setModalSet] = useState(false);
+
   let save = [];
 
   const handlePlus = () => {
@@ -50,48 +54,102 @@ const HomeScreen = () => {
         <TouchableOpacity>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.plus} onPress={handlePlus}>
-          <AntDesign name="pluscircleo" size={24} color="#000"></AntDesign>
-        </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.scvcon}>
         {hope.map((pd, key) => (
-          <View key={key} style={styles.write}>
-            <Image
-              style={styles.photo}
-              source={{
-                uri: pd.photo,
-              }}
-            />
-            <View style={styles.writeInner}>
-              <Text style={styles.innerName}>{pd.name}</Text>
-              <Text style={styles.innerPrice}>{pd.price}원</Text>
-              <Text style={styles.innerContent}>{pd.content}</Text>
+          <TouchableOpacity key={key}>
+            <View style={styles.write}>
+              <Image
+                style={styles.photo}
+                source={{
+                  uri: pd.photo,
+                }}
+              />
+              <View style={styles.writeInner}>
+                <Text style={styles.innerName}>{pd.name}</Text>
+                <Text style={styles.innerGps}>{pd.gps}</Text>
+                <Text style={styles.innerPrice}>{pd.price}원</Text>
+                {/* <Text style={styles.innerContent}>{pd.content}</Text> */}
+              </View>
+              <View
+                style={{
+                  justifyContent: "flex-end",
+                  flexDirection: "row",
+                  width: "50%",
+                }}
+              >
+                <View style={styles.ext}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Foundation
+                      name="heart"
+                      size={15}
+                      color="black"
+                      style={{ marginRight: 10 }}
+                    />
+                    <Text>{pd.like}</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginLeft: 10,
+                    }}
+                  >
+                    <AntDesign
+                      name="eye"
+                      size={15}
+                      color="black"
+                      style={{ marginRight: 10 }}
+                    />
+                    <Text>{pd.look}</Text>
+                  </View>
+                </View>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
+
       <View style={styles.bottom}>
-        <TouchableOpacity>
-          <AntDesign name="home" size={24} color="#000" style={styles.btn} />
-        </TouchableOpacity>
+        <View style={styles.home}>
+          <TouchableOpacity>
+            <AntDesign name="home" size={24} color="#000" style={styles.btn} />
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={() => loadFunc()}>
-          <AntDesign
-            name="message1"
-            size={24}
-            color="#000"
-            style={styles.btn}
-          />
-        </TouchableOpacity>
+        <View style={styles.add}>
+          <TouchableOpacity
+            onPress={() => {
+              handlePlus();
+            }}
+          >
+            <View style={styles.plusBtn}>
+              <AntDesign
+                name="pluscircleo"
+                size={30}
+                color="black"
+                style={styles.btn}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.replace("out");
-          }}
-        >
-          <AntDesign name="user" size={24} color="#000" style={styles.btn} />
-        </TouchableOpacity>
+        <View style={styles.mypage}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("out");
+            }}
+          >
+            <AntDesign name="user" size={24} color="#000" style={styles.btn} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -127,18 +185,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     textAlign: "center",
     padding: 10,
+    borderTopWidth: 1,
+    borderColor: "#444",
   },
   btn: {
     fontSize: 23,
     marginTop: 14,
     marginBottom: 14,
-  },
-  plus: {
-    flex: 1,
-    justifyContent: "flex-end",
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 25,
   },
   thumbnail: {
     width: "100%",
@@ -150,7 +203,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   name: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
   },
   date: {
@@ -177,18 +230,31 @@ const styles = StyleSheet.create({
   },
   writeInner: {
     justifyContent: "space-evenly",
-    marginLeft: 35,
+    marginLeft: 15,
   },
   innerName: {
     fontSize: 20,
+    marginTop: -10,
   },
   innerPrice: {
-    fontSize: 12,
+    fontSize: 18,
+    marginTop: -15,
   },
   innerContent: {
     fontSize: 10,
   },
+  innerGps: {
+    fontSize: 13,
+    marginBottom: 20,
+    marginTop: -19,
+  },
   scvcon: {
     alignItems: "center",
+  },
+  ext: {
+    textAlign: "center",
+    flexDirection: "row",
+    marginTop: 90,
+    marginRight: 10,
   },
 });

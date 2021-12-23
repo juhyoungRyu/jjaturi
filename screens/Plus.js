@@ -30,6 +30,7 @@ const Plus = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [content, setContent] = useState("");
+  const [gps, setGps] = useState("");
   const [uploading, setUploading] = useState(false);
 
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
@@ -118,6 +119,9 @@ const Plus = () => {
                 content: content,
                 date: new Date(),
                 photo: url,
+                gps: gps,
+                like: 0,
+                look: 0,
               })
               .then(() => {
                 navigation.replace("Home");
@@ -136,32 +140,48 @@ const Plus = () => {
   const onChangeTitle = (payload) => setName(payload);
   const onChangePrice = (payload) => setPrice(payload);
   const onChangeContent = (payload) => setContent(payload);
+  const onChangeGps = (payload) => setGps(payload);
 
   return (
     <View style={{ flex: 3 }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 50,
+        }}
+      >
+        <Text style={{ fontSize: 20 }}>상품 글쓰기</Text>
+      </View>
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder="title"
+          placeholder="제목"
           onChangeText={onChangeTitle}
           value={name}
         ></TextInput>
         <TextInput
           style={styles.input}
-          placeholder="price"
+          placeholder="가격"
           keyboardType="number-pad"
           onChangeText={onChangePrice}
           value={price}
         ></TextInput>
-
+        <TextInput
+          style={styles.input}
+          placeholder="거래 위치"
+          onChangeText={onChangeGps}
+          value={gps}
+        ></TextInput>
         <TextInput
           style={styles.inputCon}
-          placeholder="content"
+          placeholder="내용"
           maxLength={100}
           multiline={true}
           onChangeText={onChangeContent}
           value={content}
         ></TextInput>
+
         <View style={styles.picker}>
           {photo && <Image source={{ uri: photo }} style={styles.pickSize} />}
           {photo ? null : (
@@ -178,25 +198,26 @@ const Plus = () => {
           <Text style={styles.take}>Take a Picture</Text>
         </TouchableOpacity>
 
-        {uploading ? (
-          <ActivityIndicator size="large" color="#000" />
-        ) : (
-          <TouchableOpacity style={styles.pushBtn} onPress={upload}>
-            <Text style={styles.pushBtnText}>올리기</Text>
+        <View style={styles.nav}>
+          <TouchableOpacity style={styles.cancleBtn}>
+            <Text
+              color="#000"
+              style={styles.cancleText}
+              onPress={() => {
+                navigation.replace("Home");
+              }}
+            >
+              취소
+            </Text>
           </TouchableOpacity>
-        )}
-
-        <TouchableOpacity style={styles.btnCon}>
-          <AntDesign
-            name="close"
-            size={24}
-            color="#000"
-            style={styles.btn}
-            onPress={() => {
-              navigation.replace("Home");
-            }}
-          ></AntDesign>
-        </TouchableOpacity>
+          {uploading ? (
+            <ActivityIndicator size="large" color="#000" />
+          ) : (
+            <TouchableOpacity style={styles.pushBtn} onPress={upload}>
+              <Text style={styles.pushBtnText}>올리기</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -209,7 +230,7 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 50,
   },
   input: {
     width: "80%",
@@ -228,21 +249,17 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   pushBtn: {
-    backgroundColor: "#dc3545",
+    backgroundColor: "#2c97ea",
     borderRadius: 5,
-    padding: 12,
-    width: "20%",
+    padding: 15,
+    width: "25%",
     marginTop: 10,
+    marginLeft: 40,
   },
   pushBtnText: {
     textAlign: "center",
     color: "white",
     fontSize: 14,
-  },
-  btnCon: {
-    flex: 1,
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
   },
   btn: {
     fontSize: 30,
@@ -256,6 +273,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     borderWidth: 1,
+    // flex: 1,
   },
   camera: {
     textAlign: "center",
@@ -270,5 +288,26 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     // resizeMode: "contain",
+  },
+  nav: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginTop: 40,
+    marginBottom: -40,
+  },
+  cancleBtn: {
+    backgroundColor: "#dc3545",
+    borderRadius: 5,
+    padding: 15,
+    width: "25%",
+    marginTop: 10,
+    marginRight: 40,
+  },
+  cancleText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 14,
   },
 });

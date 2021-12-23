@@ -16,24 +16,14 @@ const LoginScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.replace("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
-
-  // const handleSingUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       console.log("Registered with : ", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.replace("Home");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const handleLogin = () => {
     auth

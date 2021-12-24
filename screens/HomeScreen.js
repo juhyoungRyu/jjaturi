@@ -144,7 +144,7 @@ const HomeScreen = () => {
         <View style={styles.mypage}>
           <TouchableOpacity
             onPress={() => {
-              navigation.replace("out");
+              navigation.replace("my");
             }}
           >
             <AntDesign name="user" size={24} color="#000" style={styles.btn} />

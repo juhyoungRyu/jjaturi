@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
-import SignOut from "./screens/SignOut";
+import My from "./screens/My";
 import Plus from "./screens/Plus";
 import SignIn from "./screens/SignIn";
 import test from "./screens/test";
@@ -34,8 +34,8 @@ export default function App() {
         />
         <Stack.Screen
           options={{ headerShown: false }}
-          name="out"
-          component={SignOut}
+          name="my"
+          component={My}
         ></Stack.Screen>
         <Stack.Screen
           options={{ headerShown: false }}

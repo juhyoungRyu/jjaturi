@@ -37,16 +37,18 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container} behavior="padding" enabled>
+      <Text style={styles.title}>로그인</Text>
+
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Email"
+          placeholder="이메일"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         ></TextInput>
 
         <TextInput
-          placeholder="Password"
+          placeholder="비밀번호"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
@@ -58,13 +60,17 @@ const LoginScreen = () => {
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>로그인</Text>
         </TouchableOpacity>
-
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("signIn");
+          }}
+        ></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.replace("signIn");
           }}
         >
-          <Text style={styles.wantSignUp}>계정이 있으신가요?</Text>
+          <Text style={styles.wantSignUp}>계정이 없으신가요?</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -123,5 +129,9 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     fontSize: 15,
     marginTop: 20,
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 30,
   },
 });

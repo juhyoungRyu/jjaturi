@@ -11,6 +11,7 @@ import {
 import { auth } from "../firebase";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import firebase from "../firebase";
 
@@ -19,6 +20,7 @@ const SignIn = () => {
   const [pw, setPw] = useState("");
   const [userName, setUserName] = useState("");
   const [em, setEm] = useState("");
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     auth
@@ -38,7 +40,7 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>계정 만들기</Text>
+      <Text style={styles.title}>회원가입</Text>
       <View style={{ flexDirection: "row", marginBottom: 40 }}>
         <FontAwesome5 name="user-circle" size={24} color="#444" />
         <TextInput
@@ -65,13 +67,12 @@ const SignIn = () => {
       <View style={{ flexDirection: "row", marginBottom: 50 }}>
         <FontAwesome name="lock" size={24} color="#444" />
         <TextInput
+          secureTextEntry
           placeholder="비밀번호"
           maxLength={30}
           style={styles.input}
           value={pw}
           onChangeText={(text) => setPw(text)}
-          caretHidden={true}
-          secureTextEntry={true}
         />
       </View>
 
@@ -81,6 +82,13 @@ const SignIn = () => {
         }}
       >
         <Text style={styles.btn}>계정 생성</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.replace("Login");
+        }}
+      >
+        <Text style={styles.wantSignUp}>계정이 있으신가요?</Text>
       </TouchableOpacity>
     </View>
   );
@@ -93,6 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 80,
   },
   title: {
     fontSize: 25,
@@ -114,5 +123,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 65,
+  },
+  back: {},
+  wantSignUp: {
+    color: "#6a75a3",
+    fontWeight: "900",
+    fontSize: 15,
+    marginTop: 20,
   },
 });

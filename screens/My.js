@@ -154,7 +154,45 @@ const My = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.three}></View>
+      <View style={styles.three}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("Home");
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              marginLeft: 15,
+            }}
+          >
+            <AntDesign
+              name="home"
+              size={24}
+              color="#000"
+              style={{ marginBottom: 5, marginTop: 10 }}
+            />
+            <Text>홈</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <AntDesign
+              name="user"
+              size={24}
+              color="#000"
+              style={{ marginBottom: 5, marginTop: 10 }}
+            />
+            <Text>마이페이지</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -174,8 +212,11 @@ const styles = StyleSheet.create({
     flex: 0.7,
   },
   three: {
-    flex: 0.12,
-    backgroundColor: "blue",
+    flex: 0.08,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    borderTopWidth: 1,
   },
   topNav: {
     flexDirection: "row",

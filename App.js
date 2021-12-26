@@ -10,6 +10,7 @@ import Plus from "./screens/Plus";
 import SignIn from "./screens/SignIn";
 import test from "./screens/test";
 import LoadingScreen from "./screens/LoadingScreen";
+import DetailScreen from "./screens/DetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="signIn"
           component={SignIn}
+        ></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="detail"
+          component={DetailScreen}
         ></Stack.Screen>
         {/* <Stack.Screen
           options={{ headerShown: false }}

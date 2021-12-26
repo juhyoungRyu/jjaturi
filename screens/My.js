@@ -31,8 +31,31 @@ const My = () => {
           />
         </TouchableOpacity>
       </View>
+      <View
+        style={{
+          flex: 0.3,
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <View style={styles.emptyImage} />
+        </View>
+        <View style={{ flexDirection: "column", marginLeft: 10 }}>
+          <View style={{ flex: 0.6, marginBottom: 5 }}>
+            <Text style={styles.name}>User name</Text>
+            <Text style={styles.tag}>#000000</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <AntDesign name="checkcircle" size={17} color="grey" />
+            <Text style={{ marginLeft: 7 }}>채팅링크 등록 완료</Text>
+          </View>
+        </View>
+        <View style={styles.editBtn}></View>
+      </View>
       <View style={styles.container2}>
-        <Text style={styles.email}>Email : {auth.currentUser?.email}</Text>
+        {/* <Text style={styles.email}>Email : {auth.currentUser?.email}</Text> */}
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
@@ -106,6 +129,12 @@ const styles = StyleSheet.create({
   },
   mypage: {
     fontSize: 23,
+    marginLeft: 20,
+  },
+  emptyImage: {
+    backgroundColor: "grey",
+    padding: 55,
+    borderRadius: 80,
     marginLeft: 20,
   },
 });

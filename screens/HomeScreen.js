@@ -12,9 +12,10 @@ import {
   Image,
 } from "react-native";
 import { firestore } from "../firebase";
+import DetailScreen from "./DetailScreen";
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+const HomeScreen = ({ navigation }) => {
+  // const navigation = useNavigation();
   const [hope, setHope] = useState([]);
   const [modalSet, setModalSet] = useState(false);
 
@@ -57,7 +58,22 @@ const HomeScreen = () => {
       </View>
       <ScrollView contentContainerStyle={styles.scvcon}>
         {hope.map((pd, key) => (
-          <TouchableOpacity key={key}>
+          <TouchableOpacity
+            key={key}
+            onPress={() => {
+              navigation.navigate("detail", {
+                test: 39,
+                name: pd.name,
+                price: pd.price,
+                gps: pd.gps,
+                content: pd.content,
+                like: pd.like,
+                look: pd.look,
+                date: pd.date,
+                photo: pd.photo,
+              });
+            }}
+          >
             <View style={styles.write}>
               <Image
                 style={styles.photo}
@@ -119,7 +135,11 @@ const HomeScreen = () => {
 
       <View style={styles.bottom}>
         <View style={styles.home}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              load();
+            }}
+          >
             <AntDesign name="home" size={24} color="#000" style={styles.btn} />
           </TouchableOpacity>
         </View>

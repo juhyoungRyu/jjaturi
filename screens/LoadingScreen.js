@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { auth } from "../firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoadingScreen() {
   const navigation = useNavigation();
+
   auth.onAuthStateChanged((user) => {
-    user ? navigation.replace("Home") : navigation.replace("signIn");
+    user ? navigation.replace("Home") : navigation.replace("Login");
   });
+
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="black" />

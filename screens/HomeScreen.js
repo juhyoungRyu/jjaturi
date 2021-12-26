@@ -62,14 +62,12 @@ const HomeScreen = ({ navigation }) => {
             key={key}
             onPress={() => {
               navigation.navigate("detail", {
-                test: 39,
                 name: pd.name,
                 price: pd.price,
                 gps: pd.gps,
                 content: pd.content,
                 like: pd.like,
                 look: pd.look,
-                date: pd.date,
                 photo: pd.photo,
               });
             }}

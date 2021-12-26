@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /home/sia/.yarn/bin/yarn.js add reqact-native@0.64.3
+  /usr/bin/node /home/sia/.yarn/bin/yarnpkg add @react-native-async-storage/async-storage~
 
 PATH: 
   /home/sia/.yarn/bin:/home/sia/.config/yarn/global/node_modules/.bin:/home/sia/.yarn/bin:/home/sia/.config/yarn/global/node_modules/.bin:/home/sia/.npm-global/bin:/home/sia/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -8,13 +8,13 @@ Yarn version:
   1.22.5
 
 Node version: 
-  14.18.1
+  14.18.2
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: https://registry.npmjs.org/reqact-native: Not found
+  Error: https://registry.npmjs.org/@react-native-async-storage%2fasync-storage~: Not found
       at Request.params.callback [as _callback] (/home/sia/.yarn/lib/cli.js:66988:18)
       at Request.self.callback (/home/sia/.yarn/lib/cli.js:140749:22)
       at Request.emit (events.js:400:28)
@@ -37,16 +37,20 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@react-native-async-storage/async-storage": "^1.15.14",
       "@react-native-community/google-signin": "^5.0.0",
       "@react-native-firebase/app": "^13.0.1",
       "@react-navigation/native": "^6.0.6",
       "@react-navigation/native-stack": "^6.2.5",
       "expo": "~43.0.0",
+      "expo-image-picker": "~11.0.3",
       "expo-status-bar": "~1.1.0",
       "firebase": "^9.3.0",
+      "jquery": "^3.6.0",
       "react": "17.0.1",
       "react-dom": "17.0.1",
       "react-native": "0.64.3",
+      "react-native-image-picker": "^4.3.0",
       "react-native-safe-area-context": "3.3.2",
       "react-native-screens": "~3.8.0",
       "react-native-web": "0.17.1",
@@ -1704,6 +1708,13 @@ Lockfile:
     resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
     integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
   
+  "@react-native-async-storage/async-storage@^1.15.14":
+    version "1.15.14"
+    resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.15.14.tgz#8165d3f78798b46e693169795b62e40142064273"
+    integrity sha512-eJF2horabXazwszCyyXDe4w7sBSWlB0WPA8akKXuN2n7WXKHYeQJPN41lS9OahrhSZuZwqftNFE9VWgPXA8wyA==
+    dependencies:
+      merge-options "^3.0.4"
+  
   "@react-native-community/cli-debugger-ui@^5.0.1":
     version "5.0.1"
     resolved "https://registry.npmjs.org/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-5.0.1.tgz"
@@ -2993,6 +3004,15 @@ Lockfile:
       expo-modules-core "~0.4.4"
       fontfaceobserver "^2.1.0"
   
+  expo-image-picker@~11.0.3:
+    version "11.0.3"
+    resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-11.0.3.tgz#c0b6cb9b5fa027f1bd1879a879fe13157f31ac94"
+    integrity sha512-s7nXB+hop5htcETlSvtPhEGE6RM4BX0G2e6mhr2SjJdJPAFn+hY7R3vCGBFMtxV11Gjzr0D1w2y9gDqhOj0GKg==
+    dependencies:
+      "@expo/config-plugins" "^4.0.2"
+      expo-modules-core "~0.4.4"
+      uuid "7.0.2"
+  
   expo-keep-awake@~10.0.0:
     version "10.0.0"
     resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-10.0.0.tgz"
@@ -3707,6 +3727,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz"
     integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
   
+  is-plain-obj@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
+    integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
+  
   is-plain-object@^2.0.3, is-plain-object@^2.0.4:
     version "2.0.4"
     resolved "https://registry.npmjs.org/is-plain-object/-/is-plain-object-2.0.4.tgz"
@@ -3846,6 +3871,11 @@ Lockfile:
       "@sideway/address" "^4.1.0"
       "@sideway/formula" "^3.0.0"
       "@sideway/pinpoint" "^2.0.0"
+  
+  jquery@^3.6.0:
+    version "3.6.0"
+    resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+    integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
   
   "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
     version "4.0.0"
@@ -4170,6 +4200,13 @@ Lockfile:
     integrity sha512-3Tkp1piAHaworfcCgH0jKbTvj1jWWFgbvh2cXaNCgHwyTCBxxvD1Y04rmfpvdPm1P4oXMOpm6+2H7sr7v9v8Fw==
     dependencies:
       buffer-alloc "^1.1.0"
+  
+  merge-options@^3.0.4:
+    version "3.0.4"
+    resolved "https://registry.yarnpkg.com/merge-options/-/merge-options-3.0.4.tgz#84709c2aa2a4b24c1981f66c179fe5565cc6dbb7"
+    integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+    dependencies:
+      is-plain-obj "^2.1.0"
   
   merge-stream@^2.0.0:
     version "2.0.0"
@@ -5167,6 +5204,11 @@ Lockfile:
       jscodeshift "^0.11.0"
       nullthrows "^1.1.1"
   
+  react-native-image-picker@^4.3.0:
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.3.0.tgz#d68640061d3c5e6bef1d417c8085828318162874"
+    integrity sha512-YJtpuNHK7PS4ujbsSVAL6rKW4QQEDTf80MxuPmwByYgMi01VbfkXZ/8+pf61ctOED3Z0ZZKbk7/3pJ0dQHVAbg==
+  
   react-native-safe-area-context@3.3.2:
     version "3.3.2"
     resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz"
@@ -6128,6 +6170,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+  
+  uuid@7.0.2:
+    version "7.0.2"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+    integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
   
   uuid@^3.3.2, uuid@^3.4.0:
     version "3.4.0"

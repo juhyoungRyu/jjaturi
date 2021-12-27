@@ -12,12 +12,9 @@ import {
   Image,
 } from "react-native";
 import { auth, firestore } from "../firebase";
-import DetailScreen from "./DetailScreen";
 
 const HomeScreen = ({ navigation }) => {
-  // const navigation = useNavigation();
   const [hope, setHope] = useState([]);
-  const [modalSet, setModalSet] = useState(false);
 
   let save = [];
 
@@ -35,18 +32,11 @@ const HomeScreen = ({ navigation }) => {
       .get()
       .then((res) => {
         res.forEach((doc) => {
-          // save = [...save, doc.data()];
           save = [...save, doc.data()];
-          setHope(save);
         });
+        setHope(save);
       })
-      .catch((error) => console.log(error));
-  };
-
-  const loadFunc = () => {
-    hope.forEach((pd) => {
-      console.log(pd);
-    });
+      .catch((error) => console.log(error.message));
   };
 
   return (
@@ -170,7 +160,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   bottom: {
-    flex: 0.1,
+    flex: 0.15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
@@ -181,7 +171,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     fontSize: 23,
-    marginTop: 14,
+    marginTop: 5,
     marginBottom: 14,
   },
   thumbnail: {

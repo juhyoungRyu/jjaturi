@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   profile: {
     width: "100%",
     flexDirection: "row",
-    marginTop: 25,
+    marginTop: 35,
     alignItems: "flex-start",
   },
   photo: {

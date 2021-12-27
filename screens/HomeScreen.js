@@ -11,7 +11,7 @@ import {
   View,
   Image,
 } from "react-native";
-import { firestore } from "../firebase";
+import { auth, firestore } from "../firebase";
 import DetailScreen from "./DetailScreen";
 
 const HomeScreen = ({ navigation }) => {
@@ -135,7 +135,13 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.home}>
           <TouchableOpacity
             onPress={() => {
-              load();
+              auth.currentUser
+                .updateProfile({
+                  sn: 111,
+                })
+                .then(() => {
+                  console.log(auth.currentUser.sn);
+                });
             }}
             style={{ alignItems: "center", marginLeft: 17 }}
           >

@@ -45,7 +45,9 @@ const My = () => {
               }}
             >
               <View>
-                <Text style={{ fontSize: 18, color: "black" }}>User Name</Text>
+                <Text style={{ fontSize: 18, color: "black" }}>
+                  {auth.currentUser.displayName}
+                </Text>
                 <Text style={{ fontSize: 13, color: "#444" }}>#000000</Text>
               </View>
               <View

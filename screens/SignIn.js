@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import firebase from "../firebase";
+import { now } from "jquery";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -23,18 +24,28 @@ const SignIn = () => {
   const navigation = useNavigation();
 
   const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, pw)
-      .then(() => {
-        navigation.replace("Home");
-      })
-      .catch((error) => {
-        setEm(error.message);
-        console.log(em);
-      });
-
     if (pw.length <= 6) {
       alert("비밀번호는 최소 6글자 이상이여야 합니다");
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email, pw)
+        .then(() => {
+          auth.currentUser
+            .updateProfile({
+              displayName: userName,
+              phoneNumber: "111111",
+            })
+            .then(() => {
+              navigation.replace("Home");
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        })
+        .catch((error) => {
+          setEm(error.message);
+          console.log(em);
+        });
     }
   };
 

@@ -9,9 +9,10 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { auth } from "../firebase";
 
 const DetailScreen = ({ route, navigation }) => {
-  const { name, price, content, gps, photo, look, like } = route.params;
+  const { name, price, content, gps, photo, look, like, user } = route.params;
   const [ht, setHt] = useState(false);
   return (
     <View style={styles.container}>
@@ -42,7 +43,7 @@ const DetailScreen = ({ route, navigation }) => {
             }}
           >
             {/* 닉네임, 아이디  */}
-            <Text style={styles.userName}>UserName</Text>
+            <Text style={styles.userName}>{user}</Text>
             <Text style={styles.userId}>#00000</Text>
             {/* 유저 정보 컨테이너 */}
           </View>
@@ -52,7 +53,11 @@ const DetailScreen = ({ route, navigation }) => {
       <ScrollView style={styles.contentView}>
         <View style={styles.product}>
           <View style={{ marginLeft: 20, marginBottom: 20 }}>
-            <Text style={styles.contentName}>{name}</Text>
+            <Text
+              style={styles.contentName}
+            >
+              {name}
+            </Text>
             <Text style={styles.contentValue}>{content}</Text>
           </View>
         </View>
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
   imageCon: {
     flex: 0.7,
     width: "100%",
-    marginTop: 50,
+    marginTop: 40,
   },
   photo: {
     width: "100%",
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    marginTop: 30,
+    marginTop: 20,
     borderBottomWidth: 1,
   },
   contentView: {

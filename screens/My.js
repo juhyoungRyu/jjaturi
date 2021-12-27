@@ -6,7 +6,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { auth } from "../firebase";
-import LoginScreen from "./LoginScreen";
 
 const My = () => {
   const navigation = useNavigation();

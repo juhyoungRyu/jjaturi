@@ -59,6 +59,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scvcon}>
         {hope.map((pd, key) => (
           <TouchableOpacity
+            style={{ width: "100%", alignItems: "center" }}
             key={key}
             onPress={() => {
               navigation.navigate("detail", {
@@ -69,6 +70,7 @@ const HomeScreen = ({ navigation }) => {
                 like: pd.like,
                 look: pd.look,
                 photo: pd.photo,
+                user: pd.user,
               });
             }}
           >
@@ -91,41 +93,7 @@ const HomeScreen = ({ navigation }) => {
                   flexDirection: "row",
                   width: "50%",
                 }}
-              >
-                <View style={styles.ext}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Foundation
-                      name="heart"
-                      size={15}
-                      color="black"
-                      style={{ marginRight: 10 }}
-                    />
-                    <Text>{pd.like}</Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginLeft: 10,
-                    }}
-                  >
-                    <AntDesign
-                      name="eye"
-                      size={15}
-                      color="black"
-                      style={{ marginRight: 10 }}
-                    />
-                    <Text>{pd.look}</Text>
-                  </View>
-                </View>
-              </View>
+              ></View>
             </View>
           </TouchableOpacity>
         ))}
@@ -135,13 +103,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.home}>
           <TouchableOpacity
             onPress={() => {
-              auth.currentUser
-                .updateProfile({
-                  sn: 111,
-                })
-                .then(() => {
-                  console.log(auth.currentUser.sn);
-                });
+              console.log("work!");
             }}
             style={{ alignItems: "center", marginLeft: 17 }}
           >
@@ -208,12 +170,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   bottom: {
-    flex: 0.15,
+    flex: 0.1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
     textAlign: "center",
-    padding: 10,
+    // padding: 10,
     borderTopWidth: 1,
     borderColor: "#444",
   },

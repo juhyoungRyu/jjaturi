@@ -13,8 +13,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import firebase from "../firebase";
-import { now } from "jquery";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -33,7 +31,6 @@ const SignIn = () => {
           auth.currentUser
             .updateProfile({
               displayName: userName,
-              phoneNumber: "111111",
             })
             .then(() => {
               navigation.replace("Home");
@@ -45,6 +42,7 @@ const SignIn = () => {
         .catch((error) => {
           setEm(error.message);
           console.log(em);
+          alert(em);
         });
     }
   };

@@ -15,7 +15,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { firestore } from "../firebase";
+import { auth, firestore } from "../firebase";
 import { storage } from "../firebase";
 import { LogBox } from "react-native";
 import { tk } from "../firebase";
@@ -34,6 +34,7 @@ const Plus = () => {
   const [uploading, setUploading] = useState(false);
 
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
+  const userName = auth.currentUser.displayName;
 
   useEffect(() => {
     (async () => {
@@ -122,6 +123,7 @@ const Plus = () => {
                 gps: gps,
                 like: 0,
                 look: 0,
+                user: userName,
               })
               .then(() => {
                 navigation.replace("Home");
@@ -151,7 +153,14 @@ const Plus = () => {
           marginTop: 50,
         }}
       >
-        <Text style={{ fontSize: 20 }}>상품 글쓰기</Text>
+        <Text
+          style={{ fontSize: 20 }}
+          onPress={() => {
+            console.log(userName);
+          }}
+        >
+          상품 글쓰기
+        </Text>
       </View>
       <View style={styles.container}>
         <TextInput

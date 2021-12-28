@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handlePlus = () => {
-    navigation.replace("plus");
+    navigation.replace("category");
   };
 
   return (
@@ -66,6 +66,7 @@ const HomeScreen = ({ navigation }) => {
                 photo: pd.photo,
                 user: pd.user,
                 num: pd.number,
+                category: pd.category,
               });
             }}
           >

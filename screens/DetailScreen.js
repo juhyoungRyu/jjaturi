@@ -12,7 +12,7 @@ import {
 import { auth } from "../firebase";
 
 const DetailScreen = ({ route, navigation }) => {
-  const { name, price, content, gps, photo, look, like, user, num } =
+  const { name, price, content, gps, photo, look, like, user, num, category } =
     route.params;
   const [ht, setHt] = useState(false);
   return (
@@ -49,6 +49,7 @@ const DetailScreen = ({ route, navigation }) => {
             {/* 유저 정보 컨테이너 */}
           </View>
           <Text style={styles.userGps}>{gps}</Text>
+          <Text style={styles.userCat}>{category}</Text>
         </View>
         <Text style={styles.chatBtn}>채팅하기</Text>
       </View>
@@ -223,9 +224,13 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 20,
     padding: 10,
-    width: "17%",
+    width: "22%",
     textAlign: "center",
     marginTop: 15,
     marginLeft: 90,
+  },
+  userCat: {
+    fontSize: 13,
+    color: "rgb(90,90,90)",
   },
 });

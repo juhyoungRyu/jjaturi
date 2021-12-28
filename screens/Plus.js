@@ -2,6 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import {
   KeyboardAvoidingView,
@@ -22,8 +23,8 @@ import { tk } from "../firebase";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
-const Plus = () => {
-  const navigation = useNavigation();
+const Plus = ({ route, navigation }) => {
+  // const navigation = useNavigation();
   const db = firestore;
 
   const [photo, setPhoto] = useState(null);
@@ -32,6 +33,7 @@ const Plus = () => {
   const [content, setContent] = useState("");
   const [gps, setGps] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [category, setCategory] = useState(false);
 
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
   const userName = auth.currentUser.displayName;
@@ -126,6 +128,7 @@ const Plus = () => {
                 look: 0,
                 user: userName,
                 number: userNumber,
+                category: cat,
               })
               .then(() => {
                 navigation.replace("Home");
@@ -146,27 +149,28 @@ const Plus = () => {
   const onChangeContent = (payload) => setContent(payload);
   const onChangeGps = (payload) => setGps(payload);
 
+  const { cat } = route.params;
+  let catego = cat;
+
   return (
-    <View style={{ flex: 3 }}>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 50,
-        }}
-      >
-        <Text
-          style={{ fontSize: 20 }}
-          onPress={() => {
-            console.log(userName);
-          }}
-        >
-          상품 글쓰기
-        </Text>
-      </View>
+    <View style={{ flex: 1 }}>
       <View style={styles.container}>
+        <View
+          style={{
+            width: "80%",
+            margin: 10,
+            padding: 7,
+          }}
+        ></View>
         <TextInput
-          style={styles.input}
+          style={{
+            width: "80%",
+            margin: 10,
+            padding: 7,
+            borderWidth: 1,
+            borderRadius: 5,
+            marginTop: 30,
+          }}
           placeholder="제목"
           onChangeText={onChangeTitle}
           value={name}
@@ -178,6 +182,16 @@ const Plus = () => {
           onChangeText={onChangePrice}
           value={price}
         ></TextInput>
+        <TouchableOpacity
+          style={styles.cate}
+          onPress={() => {
+            navigation.replace("category");
+          }}
+        >
+          <Text style={{ color: "#777", fontSize: 16 }}>{catego}</Text>
+          <Entypo name="triangle-down" size={24} color="#777" />
+        </TouchableOpacity>
+
         <TextInput
           style={styles.input}
           placeholder="거래 위치"
@@ -305,8 +319,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    marginTop: 40,
-    marginBottom: -40,
+    // marginTop: 0,
+    marginBottom: 40,
   },
   cancleBtn: {
     backgroundColor: "#dc3545",
@@ -320,5 +334,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 14,
+  },
+  cate: {
+    flexDirection: "row",
+    width: "80%",
+    margin: 10,
+    padding: 7,
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

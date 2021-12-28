@@ -11,6 +11,7 @@ import SignIn from "./screens/SignIn";
 import test from "./screens/test";
 import LoadingScreen from "./screens/LoadingScreen";
 import DetailScreen from "./screens/DetailScreen";
+import CategoryScreen from "./screens/CategoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +53,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="detail"
           component={DetailScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="category"
+          component={CategoryScreen}
         ></Stack.Screen>
         {/* <Stack.Screen
           options={{ headerShown: false }}

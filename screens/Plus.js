@@ -35,6 +35,7 @@ const Plus = () => {
 
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
   const userName = auth.currentUser.displayName;
+  const userNumber = auth.currentUser.photoURL;
 
   useEffect(() => {
     (async () => {
@@ -124,6 +125,7 @@ const Plus = () => {
                 like: 0,
                 look: 0,
                 user: userName,
+                number: userNumber,
               })
               .then(() => {
                 navigation.replace("Home");

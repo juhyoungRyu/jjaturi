@@ -12,7 +12,8 @@ import {
 import { auth } from "../firebase";
 
 const DetailScreen = ({ route, navigation }) => {
-  const { name, price, content, gps, photo, look, like, user } = route.params;
+  const { name, price, content, gps, photo, look, like, user, num } =
+    route.params;
   const [ht, setHt] = useState(false);
   return (
     <View style={styles.container}>
@@ -44,20 +45,17 @@ const DetailScreen = ({ route, navigation }) => {
           >
             {/* 닉네임, 아이디  */}
             <Text style={styles.userName}>{user}</Text>
-            <Text style={styles.userId}>#00000</Text>
+            <Text style={styles.userId}>#{num}</Text>
             {/* 유저 정보 컨테이너 */}
           </View>
           <Text style={styles.userGps}>{gps}</Text>
         </View>
+        <Text style={styles.chatBtn}>채팅하기</Text>
       </View>
       <ScrollView style={styles.contentView}>
         <View style={styles.product}>
           <View style={{ marginLeft: 20, marginBottom: 20 }}>
-            <Text
-              style={styles.contentName}
-            >
-              {name}
-            </Text>
+            <Text style={styles.contentName}>{name}</Text>
             <Text style={styles.contentValue}>{content}</Text>
           </View>
         </View>
@@ -88,14 +86,40 @@ const DetailScreen = ({ route, navigation }) => {
       </ScrollView>
       <View style={styles.bottom}>
         <View style={styles.htPrice}>
-          {ht ? (
-            <AntDesign name="heart" size={24} color="black" />
-          ) : (
-            <AntDesign name="hearto" size={24} color="black" />
-          )}
-          <Text style={{ fontSize: 20, marginLeft: 10, fontWeight: "700" }}>
-            {" "}
-            {price}원{" "}
+          <TouchableOpacity
+            onPress={() => {
+              if (ht == true) {
+                setHt(false);
+              } else {
+                setHt(true);
+              }
+            }}
+          >
+            {ht ? (
+              <AntDesign
+                name="heart"
+                size={24}
+                color="red"
+                style={{ marginRight: 20 }}
+              />
+            ) : (
+              <AntDesign
+                name="hearto"
+                size={24}
+                color="red"
+                style={{ marginRight: 20 }}
+              />
+            )}
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 20,
+              marginLeft: 5,
+              fontWeight: "700",
+              marginBottom: 5,
+            }}
+          >
+            {price}원
           </Text>
         </View>
         <Text style={styles.btn}>채팅하기</Text>
@@ -179,8 +203,9 @@ const styles = StyleSheet.create({
     width: "30%",
     alignContent: "center",
     justifyContent: "center",
-    marginTop: 5,
-    marginRight: 30,
+    marginTop: 15,
+    marginRight: 40,
+    marginLeft: 20,
   },
   btn: {
     padding: 11,
@@ -190,5 +215,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     marginLeft: 30,
+  },
+  chatBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgb(72,156,203)",
+    color: "white",
+    borderRadius: 20,
+    padding: 10,
+    width: "17%",
+    textAlign: "center",
+    marginTop: 15,
+    marginLeft: 90,
   },
 });

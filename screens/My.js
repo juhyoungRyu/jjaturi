@@ -43,11 +43,17 @@ const My = () => {
                 marginTop: 0,
               }}
             >
-              <View>
+              <View
+                onPress={() => {
+                  console.log(auth.currentUser.photoURL);
+                }}
+              >
                 <Text style={{ fontSize: 18, color: "black" }}>
                   {auth.currentUser.displayName}
                 </Text>
-                <Text style={{ fontSize: 13, color: "#444" }}>#000000</Text>
+                <Text style={{ fontSize: 13, color: "#444" }}>
+                  #{auth.currentUser.photoURL}
+                </Text>
               </View>
               <View
                 style={{

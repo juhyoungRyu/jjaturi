@@ -11,22 +11,22 @@ import {
   View,
   Image,
 } from "react-native";
-import { auth, firestore } from "../firebase";
+import { auth, firestore, firebase } from "../firebase";
 
 const HomeScreen = ({ navigation }) => {
   const [hope, setHope] = useState([]);
 
-  let save = [];
-
-  const handlePlus = () => {
-    navigation.replace("plus");
-  };
-
   useEffect(() => {
     load();
+    return () => {
+      console.log("Clean Up");
+    };
+    console.log("실행 안됨");
   }, []);
 
   const load = () => {
+    let save = [];
+
     firestore
       .collection("product")
       .get()
@@ -37,6 +37,10 @@ const HomeScreen = ({ navigation }) => {
         setHope(save);
       })
       .catch((error) => console.log(error.message));
+  };
+
+  const handlePlus = () => {
+    navigation.replace("plus");
   };
 
   return (
@@ -61,6 +65,7 @@ const HomeScreen = ({ navigation }) => {
                 look: pd.look,
                 photo: pd.photo,
                 user: pd.user,
+                num: pd.number,
               });
             }}
           >
@@ -91,12 +96,7 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={styles.bottom}>
         <View style={styles.home}>
-          <TouchableOpacity
-            onPress={() => {
-              console.log("work!");
-            }}
-            style={{ alignItems: "center", marginLeft: 17 }}
-          >
+          <TouchableOpacity style={{ alignItems: "center", marginLeft: 17 }}>
             <AntDesign name="home" size={24} color="#000" style={styles.btn} />
             <Text style={{ marginTop: -10 }}>홈</Text>
           </TouchableOpacity>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   bottom: {
-    flex: 0.15,
+    flex: 0.14,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",

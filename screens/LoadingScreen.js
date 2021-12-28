@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 
 export default function LoadingScreen() {
   const navigation = useNavigation();
+  const user = auth.currentUser;
 
   auth.onAuthStateChanged((user) => {
     user ? navigation.replace("Home") : navigation.replace("Login");

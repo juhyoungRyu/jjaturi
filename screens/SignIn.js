@@ -19,9 +19,11 @@ const SignIn = () => {
   const [pw, setPw] = useState("");
   const [userName, setUserName] = useState("");
   const [em, setEm] = useState("");
+
   const navigation = useNavigation();
 
   const handleSignUp = () => {
+    let randomNum = Math.floor(Math.random() * 1000000);
     if (pw.length <= 6) {
       alert("비밀번호는 최소 6글자 이상이여야 합니다");
     } else {
@@ -31,6 +33,7 @@ const SignIn = () => {
           auth.currentUser
             .updateProfile({
               displayName: userName,
+              photoURL: randomNum,
             })
             .then(() => {
               navigation.replace("Home");

@@ -220,7 +220,7 @@ const Plus = ({ route, navigation }) => {
         </View>
 
         <TouchableOpacity style={{ padding: 40 }} onPress={pickImage}>
-          <Text style={styles.take}>Take a Picture</Text>
+          <Text style={styles.take}>사진 고르기</Text>
         </TouchableOpacity>
 
         <View style={styles.nav}>

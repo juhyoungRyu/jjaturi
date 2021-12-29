@@ -97,7 +97,12 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={styles.bottom}>
         <View style={styles.home}>
-          <TouchableOpacity style={{ alignItems: "center", marginLeft: 17 }}>
+          <TouchableOpacity
+            style={{ alignItems: "center", marginLeft: 17 }}
+            onPress={() => {
+              console.log(auth.currentUser);
+            }}
+          >
             <AntDesign name="home" size={24} color="#000" style={styles.btn} />
             <Text style={{ marginTop: -10 }}>홈</Text>
           </TouchableOpacity>

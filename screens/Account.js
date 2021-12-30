@@ -4,6 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { auth } from "../firebase";
 
 const Account = ({ navigation }) => {
   return (
@@ -44,7 +45,9 @@ const Account = ({ navigation }) => {
         <TouchableOpacity
           style={styles.inList}
           onPress={() => {
-            console.log("work");
+            // console.log("work");
+            auth.signOut();
+            navigation.replace("Login");
           }}
         >
           <MaterialIcons

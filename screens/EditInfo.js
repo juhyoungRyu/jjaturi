@@ -15,7 +15,7 @@ import { auth } from "../firebase";
 
 const EditInfo = ({ navigation }) => {
   const [name, setName] = useState(auth.currentUser.displayName);
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState(auth.currentUser.photoURL.substring(6));
 
   return (
     <View style={styles.container}>

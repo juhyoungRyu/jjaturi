@@ -8,12 +8,24 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Linking,
 } from "react-native";
 import { auth } from "../firebase";
 
 const DetailScreen = ({ route, navigation }) => {
-  const { name, price, content, gps, photo, look, like, user, num, category } =
-    route.params;
+  const {
+    name,
+    price,
+    content,
+    gps,
+    photo,
+    look,
+    like,
+    user,
+    num,
+    category,
+    url,
+  } = route.params;
   const [ht, setHt] = useState(false);
   return (
     <View style={styles.container}>
@@ -31,7 +43,7 @@ const DetailScreen = ({ route, navigation }) => {
             padding: 40,
             backgroundColor: "grey",
             borderRadius: 40,
-            marginLeft: 10,
+            marginLeft: 20,
           }}
         />
         <View style={{ flexDirection: "column", marginLeft: 10, marginTop: 5 }}>
@@ -51,7 +63,15 @@ const DetailScreen = ({ route, navigation }) => {
           <Text style={styles.userGps}>{gps}</Text>
           <Text style={styles.userCat}>{category}</Text>
         </View>
-        <Text style={styles.chatBtn}>채팅하기</Text>
+        <TouchableOpacity
+          style={{ width: "100%" }}
+          onPress={() => {
+            console.log(url);
+            Linking.openURL(url);
+          }}
+        >
+          <Text style={styles.chatBtn}>채팅하기</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView style={styles.contentView}>
         <View style={styles.product}>
@@ -87,7 +107,7 @@ const DetailScreen = ({ route, navigation }) => {
       </ScrollView>
       <View style={styles.bottom}>
         <View style={styles.htPrice}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               if (ht == true) {
                 setHt(false);
@@ -111,7 +131,7 @@ const DetailScreen = ({ route, navigation }) => {
                 style={{ marginRight: 20 }}
               />
             )}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <Text
             style={{
               fontSize: 20,
@@ -123,7 +143,15 @@ const DetailScreen = ({ route, navigation }) => {
             {price}원
           </Text>
         </View>
-        <Text style={styles.btn}>채팅하기</Text>
+        <TouchableOpacity
+          style={styles.btnCon}
+          onPress={() => {
+            console.log(auth.currentUser.photoURL.substring(6));
+            Linking.openURL(auth.currentUser.photoURL.substring(6));
+          }}
+        >
+          <Text style={styles.btn}>채팅하기</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -157,6 +185,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 20,
     borderBottomWidth: 1,
+    // marginLeft: 40,
   },
   contentView: {
     flex: 0.3,
@@ -169,10 +198,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderTopWidth: 1,
     width: "100%",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     alignItems: "center",
     marginTop: 10,
     borderColor: "rgb(90,90,90)",
+    // backgroundColor: "teal",
   },
   userName: {
     fontSize: 19,
@@ -214,8 +244,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: "30%",
     textAlign: "center",
+    marginRight: 120,
     color: "white",
-    marginLeft: 30,
+    // marginLeft: 30,
   },
   chatBtn: {
     justifyContent: "center",
@@ -227,10 +258,16 @@ const styles = StyleSheet.create({
     width: "22%",
     textAlign: "center",
     marginTop: 15,
-    marginLeft: 90,
+    marginLeft: 80,
+    marginRight: 0,
   },
   userCat: {
     fontSize: 13,
     color: "rgb(90,90,90)",
+  },
+  btnCon: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

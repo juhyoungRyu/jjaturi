@@ -67,6 +67,7 @@ const HomeScreen = ({ navigation }) => {
                 user: pd.user,
                 num: pd.number,
                 category: pd.category,
+                url: pd.url,
               });
             }}
           >
@@ -148,6 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   nav: {
+    flex: 0.1,
     flexDirection: "row",
     marginTop: 20,
     borderBottomWidth: 1,
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   bottom: {
-    flex: 0.14,
+    flex: 0.1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
@@ -236,6 +238,7 @@ const styles = StyleSheet.create({
     marginTop: -19,
   },
   scvcon: {
+    flex: 0.8,
     alignItems: "center",
   },
   ext: {

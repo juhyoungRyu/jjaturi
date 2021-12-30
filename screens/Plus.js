@@ -37,7 +37,8 @@ const Plus = ({ route, navigation }) => {
 
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
   const userName = auth.currentUser.displayName;
-  const userNumber = auth.currentUser.photoURL;
+  const userNumber = auth.currentUser.photoURL.substring(0, 6);
+  const userUrl = auth.currentUser.photoURL.substring(6);
 
   useEffect(() => {
     (async () => {
@@ -104,6 +105,7 @@ const Plus = ({ route, navigation }) => {
       },
       (error) => {
         setUploading(false);
+        alert("오류!");
         console.log(error);
         blob.close();
         return;
@@ -129,16 +131,19 @@ const Plus = ({ route, navigation }) => {
                 user: userName,
                 number: userNumber,
                 category: cat,
+                url: userUrl,
               })
               .then(() => {
                 navigation.replace("Home");
               })
               .catch((error) => {
+                alert("오류!");
                 console.log(error);
               });
           })
           .catch((e) => {
             console.log(e);
+            alert("오류!");
           });
       }
     );
@@ -162,86 +167,94 @@ const Plus = ({ route, navigation }) => {
             padding: 7,
           }}
         ></View>
-        <TextInput
+        <View
           style={{
-            width: "80%",
-            margin: 10,
-            padding: 7,
-            borderWidth: 1,
-            borderRadius: 5,
-            marginTop: 30,
-          }}
-          placeholder="제목"
-          onChangeText={onChangeTitle}
-          value={name}
-        ></TextInput>
-        <TextInput
-          style={styles.input}
-          placeholder="가격"
-          keyboardType="number-pad"
-          onChangeText={onChangePrice}
-          value={price}
-        ></TextInput>
-        <TouchableOpacity
-          style={styles.cate}
-          onPress={() => {
-            navigation.replace("category");
+            flex: 2,
+            width: "100%",
+            // justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Text style={{ color: "#777", fontSize: 16 }}>{catego}</Text>
-          <Entypo name="triangle-down" size={24} color="#777" />
-        </TouchableOpacity>
-
-        <TextInput
-          style={styles.input}
-          placeholder="거래 위치"
-          onChangeText={onChangeGps}
-          value={gps}
-        ></TextInput>
-        <TextInput
-          style={styles.inputCon}
-          placeholder="내용"
-          maxLength={100}
-          multiline={true}
-          onChangeText={onChangeContent}
-          value={content}
-        ></TextInput>
-
-        <View style={styles.picker}>
-          {photo && <Image source={{ uri: photo }} style={styles.pickSize} />}
-          {photo ? null : (
-            <Feather
-              style={styles.camera}
-              name="camera"
-              size={26}
-              color="black"
-            />
-          )}
-        </View>
-
-        <TouchableOpacity style={{ padding: 40 }} onPress={pickImage}>
-          <Text style={styles.take}>사진 고르기</Text>
-        </TouchableOpacity>
-
-        <View style={styles.nav}>
-          <TouchableOpacity style={styles.cancleBtn}>
-            <Text
-              color="#000"
-              style={styles.cancleText}
-              onPress={() => {
-                navigation.replace("Home");
-              }}
-            >
-              취소
-            </Text>
+          <TextInput
+            style={{
+              width: "80%",
+              margin: 10,
+              padding: 7,
+              borderWidth: 1,
+              borderRadius: 5,
+              marginTop: 30,
+            }}
+            placeholder="제목"
+            onChangeText={onChangeTitle}
+            value={name}
+          ></TextInput>
+          <TextInput
+            style={styles.input}
+            placeholder="가격"
+            keyboardType="number-pad"
+            onChangeText={onChangePrice}
+            value={price}
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.cate}
+            onPress={() => {
+              navigation.replace("category");
+            }}
+          >
+            <Text style={{ color: "#777", fontSize: 16 }}>{catego}</Text>
+            <Entypo name="triangle-down" size={24} color="#777" />
           </TouchableOpacity>
-          {uploading ? (
-            <ActivityIndicator size="large" color="#000" />
-          ) : (
-            <TouchableOpacity style={styles.pushBtn} onPress={upload}>
-              <Text style={styles.pushBtnText}>올리기</Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="거래 위치"
+            onChangeText={onChangeGps}
+            value={gps}
+          ></TextInput>
+          <TextInput
+            style={styles.inputCon}
+            placeholder="내용"
+            maxLength={100}
+            multiline={true}
+            onChangeText={onChangeContent}
+            value={content}
+          ></TextInput>
+
+          <View style={styles.picker}>
+            {photo && <Image source={{ uri: photo }} style={styles.pickSize} />}
+            {photo ? null : (
+              <Feather
+                style={styles.camera}
+                name="camera"
+                size={26}
+                color="black"
+              />
+            )}
+          </View>
+
+          <TouchableOpacity style={{ padding: 40 }} onPress={pickImage}>
+            <Text style={styles.take}>사진 고르기</Text>
+          </TouchableOpacity>
+          <View style={styles.nav}>
+            <TouchableOpacity style={styles.cancleBtn}>
+              <Text
+                color="#000"
+                style={styles.cancleText}
+                onPress={() => {
+                  navigation.replace("Home");
+                }}
+              >
+                취소
+              </Text>
             </TouchableOpacity>
-          )}
+            {uploading ? (
+              <ActivityIndicator size="large" color="#000" />
+            ) : (
+              <TouchableOpacity style={styles.pushBtn} onPress={upload}>
+                <Text style={styles.pushBtnText}>올리기</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     </View>
@@ -315,7 +328,7 @@ const styles = StyleSheet.create({
     // resizeMode: "contain",
   },
   nav: {
-    flex: 1,
+    // flex: 0.2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
@@ -329,6 +342,8 @@ const styles = StyleSheet.create({
     width: "25%",
     marginTop: 10,
     marginRight: 40,
+    // color: "white",
+    // fontSize: 40,
   },
   cancleText: {
     textAlign: "center",

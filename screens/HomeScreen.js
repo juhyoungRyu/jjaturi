@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
+// import { AntDesign } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import {
   ScrollView,
@@ -46,8 +47,24 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(hope);
+          }}
+        >
           <Text style={styles.title}>JJATURI</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("search");
+          }}
+        >
+          <AntDesign
+            name="search1"
+            size={24}
+            color="black"
+            style={{ marginRight: 40 }}
+          />
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={styles.scvcon}>
@@ -154,6 +171,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderBottomWidth: 1,
     borderColor: "grey",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
     justifyContent: "flex-start",

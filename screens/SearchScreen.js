@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import {
   StyleSheet,
   Text,
@@ -7,12 +8,13 @@ import {
   TextInput,
   SafeAreaView,
   FlatList,
+  Image,
+  StatusBar,
 } from "react-native";
 
-// import { useEffect, useState } from "react/cjs/react.production.min";
 import { firestore } from "../firebase";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [searcher, setSearcher] = useState("");
@@ -39,10 +41,32 @@ const SearchScreen = () => {
   };
 
   const ItemView = ({ item }) => {
+    console.log(item);
     return (
-      <View>
-        <Text>{item.name}</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("detail", {
+            name: item.name,
+            price: item.price,
+            gps: item.gps,
+            content: item.content,
+            like: item.like,
+            look: item.look,
+            photo: item.photo,
+            user: item.user,
+            num: item.number,
+            category: item.category,
+            url: item.url,
+          });
+        }}
+        style={styles.itemCon}
+      >
+        <View style={{ width: "60%" }}>
+          <Text style={styles.itemName}>{item.name}</Text>
+          <Text style={styles.itemPrice}>{item.price}원</Text>
+          <Text style={styles.itemGps}>{item.gps}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -69,23 +93,44 @@ const SearchScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 2 }}>
       <View style={styles.container}>
-        <TextInput
-          style={styles.textInputStyle}
-          value={searcher}
-          placeholder="search Here"
-          underlineColorAndroid="transparent"
-          onChangeText={(text) => {
-            setSearcher(text);
-            searchFilter(text);
+        <StatusBar hidden={true}></StatusBar>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 10,
+            borderBottomWidth: 1,
+            borderColor: "#D3D3D3",
           }}
-        ></TextInput>
+        >
+          <TouchableOpacity
+            style={styles.nav}
+            onPress={() => {
+              navigation.replace("Home");
+            }}
+          >
+            <AntDesign name="arrowleft" size={24} color="black" />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.textInputStyle}
+            value={searcher}
+            placeholder="무엇을 찾고계신가요?"
+            underlineColorAndroid="transparent"
+            onChangeText={(text) => {
+              setSearcher(text);
+              searchFilter(text);
+            }}
+          ></TextInput>
+        </View>
         <FlatList
           data={filteredData}
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={ItemSeperatorView}
           renderItem={ItemView}
+          style={styles.list}
         ></FlatList>
       </View>
     </SafeAreaView>
@@ -95,6 +140,7 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "white",
   },
   itemStyle: {
@@ -105,7 +151,40 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 20,
     margin: 5,
-    borderColor: "#009688",
-    backgroundColor: "white",
+    backgroundColor: "#D3D3D3",
+    marginBottom: 20,
+    width: "85%",
+    marginLeft: 10,
+    color: "black",
+    borderRadius: 15,
+    borderColor: "transparent",
+    marginBottom: 5,
+  },
+  nav: {
+    marginLeft: 10,
+  },
+  list: {
+    marginTop: 10,
+  },
+  itemName: {
+    marginLeft: 20,
+    fontSize: 18,
+  },
+  itemPrice: {
+    fontSize: 15,
+    marginLeft: 20,
+  },
+  itemGps: {
+    fontSize: 15,
+    marginLeft: 20,
+  },
+  itemCon: {
+    borderBottomWidth: 1,
+    borderColor: "#D3D3D3",
+    marginBottom: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 15,
   },
 });

@@ -55,26 +55,35 @@ const HomeScreen = ({ navigation }) => {
         >
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.replace("category2");
+        <View
+          style={{
+            flexDirection: "row",
+            width: "24%",
+            justifyContent: "space-between",
           }}
         >
-          <Entypo name="menu" size={24} color="black" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.menu}
+            onPress={() => {
+              navigation.replace("category2");
+            }}
+          >
+            <Entypo name="menu" size={24} color="black" />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.replace("search");
-          }}
-        >
-          <AntDesign
-            name="search1"
-            size={24}
-            color="black"
-            style={{ marginRight: 40 }}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("search");
+            }}
+          >
+            <AntDesign
+              name="search1"
+              size={24}
+              color="black"
+              style={{ marginRight: 20 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <ScrollView contentContainerStyle={styles.scvcon}>
         {hope.map((pd, key) => (

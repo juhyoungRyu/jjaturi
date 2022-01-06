@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+import { getAuth, deleteUser } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,7 +32,7 @@ const authh = firebase.auth;
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 const tk = firebase.storage.TaskEvent;
-
+const du = deleteUser;
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
@@ -43,3 +44,4 @@ export { firestore };
 export { auth };
 export { authh };
 export { storage };
+export { du };

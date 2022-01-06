@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 const Stack = createNativeStackNavigator();
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { firestore } from "../firebase";
+import { AntDesign } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation }) => {
   const [master, setMaster] = useState([]);
@@ -83,6 +84,19 @@ const HomeScreen = ({ navigation }) => {
             <Text>Coming Soon!</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("Home");
+          }}
+          style={{
+            flex: 4,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 300,
+          }}
+        >
+          <AntDesign name="closecircleo" size={27} color="black" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -95,7 +109,6 @@ const Buy = ({ route, navigation }) => {
   });
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-     
       <View>
         {dataRe1.map((obj, key) => (
           <Text key={key}>{obj.name}</Text>
@@ -112,7 +125,6 @@ const Paint = ({ route, navigation }) => {
   });
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      
       <View>
         {dataRe2.map((obj, key) => (
           <Text key={key}>{obj.name}</Text>
@@ -129,7 +141,6 @@ const Tools = ({ route, navigation }) => {
   });
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-     
       <View>
         {dataRe3.map((obj, key) => (
           <Text key={key}>{obj.name}</Text>
@@ -146,7 +157,6 @@ const WallPaper = ({ route, navigation }) => {
   });
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      
       <View>
         {dataRe4.map((obj, key) => (
           <Text key={key}>{obj.name}</Text>

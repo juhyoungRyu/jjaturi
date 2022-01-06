@@ -3,8 +3,8 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { auth } from "../firebase";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { auth, du } from "../firebase";
 
 const Account = ({ navigation }) => {
   return (
@@ -61,6 +61,28 @@ const Account = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
+      {/* <TouchableOpacity
+        onPress={() => {
+          Alert.alert("계정 삭제", "정말 계정을 삭제하시겠습니까?", [
+            {
+              text: "아니요",
+            },
+            {
+              text: "예",
+              onPress: () => {
+                auth.currentUser.delete().then(() => {
+                  navigation.replace("signIn");
+                });
+              },
+            },
+          ]);
+        }}
+        style={{ flex: 0.4, alignItems: "center", justifyContent: "center" }}
+      >
+        <Text style={{ color: "#dc3545", fontSize: 20, marginTop: 70 }}>
+          계정 삭제
+        </Text>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -83,10 +105,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   list: {
-    flex: 0.9,
+    flex: 0.5,
   },
   inList: {
-    flex: 0.1,
+    flex: 0.15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

@@ -16,6 +16,7 @@ import AppSetting from "./screens/AppSetting";
 import Account from "./screens/Account";
 import EditInfo from "./screens/EditInfo";
 import SearchScreen from "./screens/SearchScreen";
+import CategoryScreen2 from "./screens/CategoryScreen2";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,11 @@ export default function App() {
         ></Stack.Screen>
         <Stack.Screen
           options={{ headerShown: false }}
+          name="category2"
+          component={CategoryScreen2}
+        ></Stack.Screen>
+        <Stack.Screen
+          options={{ headerShown: false }}
           name="appSet"
           component={AppSetting}
         ></Stack.Screen>
@@ -83,6 +89,7 @@ export default function App() {
           name="search"
           component={SearchScreen}
         ></Stack.Screen>
+
         {/* <Stack.Screen
           options={{ headerShown: false }}
           name="test"

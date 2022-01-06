@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
+
 // import { AntDesign } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import {
@@ -54,6 +55,14 @@ const HomeScreen = ({ navigation }) => {
         >
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.replace("category2");
+          }}
+        >
+          <Entypo name="menu" size={24} color="black" />
+        </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => {
             navigation.replace("search");

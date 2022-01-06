@@ -13,17 +13,6 @@ const CategoryScreen = ({ navigation }) => {
             style={styles.con}
             onPress={() => {
               navigation.navigate("plus", {
-                cat: "인기상품",
-              });
-            }}
-          >
-            <View style={styles.icon} />
-            <Text>인기상품</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.con}
-            onPress={() => {
-              navigation.navigate("plus", {
                 cat: "삽니다",
               });
             }}
@@ -42,8 +31,6 @@ const CategoryScreen = ({ navigation }) => {
             <View style={styles.icon} />
             <Text>페인트</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.row2}>
           <TouchableOpacity
             style={styles.con}
             onPress={() => {
@@ -55,6 +42,8 @@ const CategoryScreen = ({ navigation }) => {
             <View style={styles.icon} />
             <Text>공구</Text>
           </TouchableOpacity>
+        </View>
+        <View style={styles.row2}>
           <TouchableOpacity
             style={styles.con}
             onPress={() => {

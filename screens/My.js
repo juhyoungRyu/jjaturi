@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -43,8 +43,7 @@ const My = () => {
             <Text style={{ marginLeft: 30, fontSize: 22 }}>마이페이지</Text>
             <TouchableOpacity
               onPress={() => {
-                console.log(auth.currentUser.photoURL.substring(6, 7));
-                console.log(tftf);
+                navigation.replace("appSet");
               }}
             >
               <AntDesign
@@ -144,6 +143,9 @@ const My = () => {
         </View>
         <View style={styles.manual}>
           <TouchableOpacity
+            onPress={() => {
+              Alert.alert("죄송합니다. 아직 준비중입니다");
+            }}
             style={{
               width: "100%",
               flexDirection: "row",

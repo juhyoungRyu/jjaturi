@@ -40,7 +40,7 @@ const AppSetting = ({ navigation }) => {
             계정 관리
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.inList}
           onPress={() => {
             alert("아직 사용할 수 없어요!");
@@ -49,8 +49,8 @@ const AppSetting = ({ navigation }) => {
           <Text style={{ fontSize: 25, marginLeft: 10, color: "#555" }}>
             Coming Soon
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity> */}
+        {/* <TouchableOpacity
           style={styles.inList}
           onPress={() => {
             alert("아직 사용할 수 없어요!");
@@ -59,7 +59,7 @@ const AppSetting = ({ navigation }) => {
           <Text style={{ fontSize: 25, marginLeft: 10, color: "#555" }}>
             Coming Soon
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

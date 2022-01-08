@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 const CategoryScreen = ({ navigation }) => {
   return (
@@ -17,7 +17,12 @@ const CategoryScreen = ({ navigation }) => {
               });
             }}
           >
-            <View style={styles.icon} />
+            <Image
+              style={styles.icon}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Fme.png?alt=media&token=8aeeb9a2-11de-4d9d-8470-a2c741391067",
+              }}
+            />
             <Text>삽니다</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -28,19 +33,13 @@ const CategoryScreen = ({ navigation }) => {
               });
             }}
           >
-            <View style={styles.icon} />
+            <Image
+              style={styles.icon}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Fpaint.png?alt=media&token=0d4d037d-3de7-4ad9-b070-2b99e8552f94",
+              }}
+            />
             <Text>페인트</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.con}
-            onPress={() => {
-              navigation.navigate("plus", {
-                cat: "공구",
-              });
-            }}
-          >
-            <View style={styles.icon} />
-            <Text>공구</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.row2}>
@@ -52,17 +51,29 @@ const CategoryScreen = ({ navigation }) => {
               });
             }}
           >
-            <View style={styles.icon} />
+            <Image
+              style={styles.icon}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Fwallpaper.png?alt=media&token=0a7c5bbf-f2c3-4752-8e8b-8e90ee476149",
+              }}
+            />
             <Text>벽지</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.con}
             onPress={() => {
-              alert("준비중입니다!");
+              navigation.navigate("plus", {
+                cat: "공구",
+              });
             }}
           >
-            <View style={styles.icon} />
-            <Text>Coming Soon!</Text>
+            <Image
+              style={styles.icon}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Ftool1.png?alt=media&token=0dbc307c-add2-4662-b98e-f4d09a1a4b05",
+              }}
+            />
+            <Text>공구</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -101,11 +112,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   icon: {
-    padding: 40,
-    backgroundColor: "grey",
-    width: "20%",
+    height: 100,
+    width: 100,
     marginBottom: 5,
-    borderRadius: 50,
+    borderRadius: 60,
+    resizeMode: "contain",
   },
   con: {
     alignItems: "center",

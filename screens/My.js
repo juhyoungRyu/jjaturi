@@ -109,7 +109,7 @@ const My = () => {
         </View>
       </View>
       <View style={styles.two}>
-        <View style={styles.buttonCon}>
+        {/* <View style={styles.buttonCon}>
           <TouchableOpacity>
             <View
               style={{
@@ -140,8 +140,8 @@ const My = () => {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-        <View style={styles.manual}>
+        </View> */}
+        {/* <View style={styles.manual}>
           <TouchableOpacity
             onPress={() => {
               Alert.alert("죄송합니다. 아직 준비중입니다");
@@ -169,7 +169,7 @@ const My = () => {
               앱 설명서
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={styles.setting}>
           <TouchableOpacity
             style={{
@@ -310,7 +310,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   setting: {
-    borderTopWidth: 1,
     borderBottomWidth: 1,
   },
 });

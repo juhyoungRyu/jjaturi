@@ -64,20 +64,6 @@ const HomeScreen = ({ navigation }) => {
             />
             <Text>페인트</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.con}
-            onPress={() => {
-              navigation.navigate("tools", { src: master });
-            }}
-          >
-            <Image
-              style={styles.icon}
-              source={{
-                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Ftool1.png?alt=media&token=0dbc307c-add2-4662-b98e-f4d09a1a4b05",
-              }}
-            />
-            <Text>공구</Text>
-          </TouchableOpacity>
         </View>
         <View style={styles.row2}>
           <TouchableOpacity
@@ -97,11 +83,16 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.con}
             onPress={() => {
-              alert("준비중입니다!");
+              navigation.navigate("tools", { src: master });
             }}
           >
-            <View style={styles.cms} />
-            <Text>Coming Soon!</Text>
+            <Image
+              style={styles.icon}
+              source={{
+                uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/default%2Ftool1.png?alt=media&token=0dbc307c-add2-4662-b98e-f4d09a1a4b05",
+              }}
+            />
+            <Text>공구</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -128,12 +119,47 @@ const Buy = ({ route, navigation }) => {
     return item.category == "삽니다";
   });
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View>
-        {dataRe1.map((obj, key) => (
-          <Text key={key}>{obj.name}</Text>
-        ))}
-      </View>
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity
+        style={{
+          flex: 0.06,
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
+          marginLeft: 10,
+        }}
+        onPress={() => {
+          navigation.replace("Home");
+        }}
+      >
+        <AntDesign name="arrowleft" size={34} color="black" />
+      </TouchableOpacity>
+      {dataRe1.map((obj, key) => (
+        <TouchableOpacity
+          key={key}
+          style={styles.paintCon}
+          onPress={() => {
+            navigation.navigate("detail", {
+              name: obj.name,
+              price: obj.price,
+              gps: obj.gps,
+              content: obj.content,
+              like: obj.like,
+              look: obj.look,
+              photo: obj.photo,
+              user: obj.user,
+              num: obj.number,
+              category: obj.category,
+              url: obj.url,
+            });
+          }}
+        >
+          <View style={{ marginLeft: 20 }}>
+            <Text>{obj.name}</Text>
+            <Text>{obj.price}</Text>
+            <Text>{obj.gps}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -144,16 +170,47 @@ const Paint = ({ route, navigation }) => {
     return item.category == "페인트";
   });
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View>
-        {dataRe2.map((obj, key) => (
-          <View key={key} style={styles.paintCon}>
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity
+        style={{
+          flex: 0.06,
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
+          marginLeft: 10,
+        }}
+        onPress={() => {
+          navigation.replace("Home");
+        }}
+      >
+        <AntDesign name="arrowleft" size={34} color="black" />
+      </TouchableOpacity>
+      {dataRe2.map((obj, key) => (
+        <TouchableOpacity
+          key={key}
+          style={styles.paintCon}
+          onPress={() => {
+            navigation.navigate("detail", {
+              name: obj.name,
+              price: obj.price,
+              gps: obj.gps,
+              content: obj.content,
+              like: obj.like,
+              look: obj.look,
+              photo: obj.photo,
+              user: obj.user,
+              num: obj.number,
+              category: obj.category,
+              url: obj.url,
+            });
+          }}
+        >
+          <View style={{ marginLeft: 20 }}>
             <Text>{obj.name}</Text>
             <Text>{obj.price}</Text>
             <Text>{obj.gps}</Text>
           </View>
-        ))}
-      </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -164,12 +221,47 @@ const Tools = ({ route, navigation }) => {
     return item.category == "공구";
   });
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View>
-        {dataRe3.map((obj, key) => (
-          <Text key={key}>{obj.name}</Text>
-        ))}
-      </View>
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity
+        style={{
+          flex: 0.06,
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
+          marginLeft: 10,
+        }}
+        onPress={() => {
+          navigation.replace("Home");
+        }}
+      >
+        <AntDesign name="arrowleft" size={34} color="black" />
+      </TouchableOpacity>
+      {dataRe3.map((obj, key) => (
+        <TouchableOpacity
+          key={key}
+          style={styles.paintCon}
+          onPress={() => {
+            navigation.navigate("detail", {
+              name: obj.name,
+              price: obj.price,
+              gps: obj.gps,
+              content: obj.content,
+              like: obj.like,
+              look: obj.look,
+              photo: obj.photo,
+              user: obj.user,
+              num: obj.number,
+              category: obj.category,
+              url: obj.url,
+            });
+          }}
+        >
+          <View style={{ marginLeft: 20 }}>
+            <Text>{obj.name}</Text>
+            <Text>{obj.price}</Text>
+            <Text>{obj.gps}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -180,12 +272,47 @@ const WallPaper = ({ route, navigation }) => {
     return item.category == "벽지";
   });
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View>
-        {dataRe4.map((obj, key) => (
-          <Text key={key}>{obj.name}</Text>
-        ))}
-      </View>
+    <View style={{ flex: 1 }}>
+      <TouchableOpacity
+        style={{
+          flex: 0.06,
+          alignItems: "flex-start",
+          justifyContent: "flex-end",
+          marginLeft: 10,
+        }}
+        onPress={() => {
+          navigation.replace("Home");
+        }}
+      >
+        <AntDesign name="arrowleft" size={34} color="black" />
+      </TouchableOpacity>
+      {dataRe4.map((obj, key) => (
+        <TouchableOpacity
+          key={key}
+          style={styles.paintCon}
+          onPress={() => {
+            navigation.navigate("detail", {
+              name: obj.name,
+              price: obj.price,
+              gps: obj.gps,
+              content: obj.content,
+              like: obj.like,
+              look: obj.look,
+              photo: obj.photo,
+              user: obj.user,
+              num: obj.number,
+              category: obj.category,
+              url: obj.url,
+            });
+          }}
+        >
+          <View style={{ marginLeft: 20 }}>
+            <Text>{obj.name}</Text>
+            <Text>{obj.price}</Text>
+            <Text>{obj.gps}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
@@ -269,5 +396,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "30%",
   },
-  paintCon: {},
+  paintCon: {
+    flex: 0.1,
+    borderBottomWidth: 1,
+    justifyContent: "center",
+  },
 });

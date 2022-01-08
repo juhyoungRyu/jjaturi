@@ -46,8 +46,18 @@ const Account = ({ navigation }) => {
           style={styles.inList}
           onPress={() => {
             // console.log("work");
-            auth.signOut();
-            navigation.replace("Login");
+            Alert.alert("로그아웃", "정말 로그아웃 하시겠습니까?", [
+              {
+                text: "아니요",
+              },
+              {
+                text: "네",
+                onPress: () => {
+                  auth.signOut();
+                  navigation.replace("Login");
+                },
+              },
+            ]);
           }}
         >
           <MaterialIcons

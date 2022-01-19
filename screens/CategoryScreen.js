@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 const CategoryScreen = ({ navigation }) => {
@@ -77,6 +78,14 @@ const CategoryScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity
+        style={styles.backBtnCon}
+        onPress={() => {
+          navigation.replace("Home");
+        }}
+      >
+        <AntDesign name="closecircleo" size={27} color="black" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -92,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   category: {
-    flex: 9,
+    flex: 8,
   },
   name: {
     fontSize: 25,
@@ -121,5 +130,10 @@ const styles = StyleSheet.create({
   con: {
     alignItems: "center",
     width: "30%",
+  },
+  backBtnCon: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

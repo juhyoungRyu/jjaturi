@@ -1,13 +1,32 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-const Stack = createNativeStackNavigator();
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+} from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { firestore } from "../firebase";
 import { AntDesign } from "@expo/vector-icons";
+const Stack = createNativeStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
   const [master, setMaster] = useState([]);
+
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     fetchPosts();

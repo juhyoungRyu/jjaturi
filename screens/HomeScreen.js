@@ -12,18 +12,34 @@ import {
   TouchableOpacity,
   View,
   Image,
+  BackHandler,
+  TouchableWithoutFeedback,
+  SafeAreaView,
 } from "react-native";
-import { auth, firestore, firebase } from "../firebase";
+import { auth, firestore } from "../firebase";
 
 const HomeScreen = ({ navigation }) => {
   const [hope, setHope] = useState([]);
 
   useEffect(() => {
-    load();
-    return () => {
-      console.log("Clean Up");
+    const backAction = () => {
+      return true;
     };
-    console.log("실행 안됨");
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
+  useEffect(() => {
+    load();
+
+    return () => {
+      load();
+    };
   }, []);
 
   const load = () => {
@@ -35,8 +51,8 @@ const HomeScreen = ({ navigation }) => {
       .then((res) => {
         res.forEach((doc) => {
           save = [...save, doc.data()];
+          setHope(save);
         });
-        setHope(save);
       })
       .catch((error) => console.log(error.message));
   };
@@ -85,51 +101,53 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.scvcon}>
-        {hope.map((pd, key) => (
-          <TouchableOpacity
-            style={{ width: "100%", alignItems: "center" }}
-            key={key}
-            onPress={() => {
-              navigation.navigate("detail", {
-                name: pd.name,
-                price: pd.price,
-                gps: pd.gps,
-                content: pd.content,
-                like: pd.like,
-                look: pd.look,
-                photo: pd.photo,
-                user: pd.user,
-                num: pd.number,
-                category: pd.category,
-                url: pd.url,
-              });
-            }}
-          >
-            <View style={styles.write}>
-              <Image
-                style={styles.photo}
-                source={{
-                  uri: pd.photo,
-                }}
-              />
-              <View style={styles.writeInner}>
-                <Text style={styles.innerName}>{pd.name}</Text>
-                <Text style={styles.innerGps}>{pd.gps}</Text>
-                <Text style={styles.innerPrice}>{pd.price}원</Text>
-                {/* <Text style={styles.innerContent}>{pd.content}</Text> */}
+      <SafeAreaView style={{ flex: 0.9 }}>
+        <ScrollView contentContainerStyle={styles.scvcon}>
+          {hope.map((pd, key) => (
+            <TouchableOpacity
+              style={{ width: "100%", alignItems: "center" }}
+              key={key}
+              onPress={() => {
+                navigation.navigate("detail", {
+                  name: pd.name,
+                  price: pd.price,
+                  gps: pd.gps,
+                  content: pd.content,
+                  like: pd.like,
+                  look: pd.look,
+                  photo: pd.photo,
+                  user: pd.user,
+                  num: pd.number,
+                  category: pd.category,
+                  url: pd.url,
+                });
+              }}
+            >
+              <View style={styles.write}>
+                <Image
+                  style={styles.photo}
+                  source={{
+                    uri: pd.photo,
+                  }}
+                />
+                <View style={styles.writeInner}>
+                  <Text style={styles.innerName}>{pd.name}</Text>
+                  <Text style={styles.innerGps}>{pd.gps}</Text>
+                  <Text style={styles.innerPrice}>{pd.price}원</Text>
+                  {/* <Text style={styles.innerContent}>{pd.content}</Text> */}
+                </View>
+                <View
+                  style={{
+                    justifyContent: "flex-end",
+                    flexDirection: "row",
+                    width: "50%",
+                  }}
+                ></View>
               </View>
-              <View
-                style={{
-                  justifyContent: "flex-end",
-                  flexDirection: "row",
-                  width: "50%",
-                }}
-              ></View>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
 
       <View style={styles.bottom}>
         <View style={styles.home}>
@@ -184,9 +202,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   nav: {
-    flex: 0.1,
+    flex: 0.09,
     flexDirection: "row",
-    marginTop: 20,
     borderBottomWidth: 1,
     borderColor: "grey",
     alignItems: "center",
@@ -275,7 +292,6 @@ const styles = StyleSheet.create({
     marginTop: -19,
   },
   scvcon: {
-    flex: 0.8,
     alignItems: "center",
   },
   ext: {

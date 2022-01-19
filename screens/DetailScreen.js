@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import {
@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   Linking,
+  BackHandler,
 } from "react-native";
 import { auth } from "../firebase";
 
@@ -27,6 +28,18 @@ const DetailScreen = ({ route, navigation }) => {
     url,
   } = route.params;
   const [ht, setHt] = useState(false);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.replace("Home");
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageCon}>
@@ -79,30 +92,6 @@ const DetailScreen = ({ route, navigation }) => {
             <Text style={styles.contentName}>{name}</Text>
             <Text style={styles.contentValue}>{content}</Text>
           </View>
-        </View>
-        <View style={styles.nextPro}>
-          <Text
-            style={{
-              fontSize: 30,
-              textAlign: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 120,
-            }}
-          >
-            Comming Soon
-          </Text>
-          <Text
-            style={{
-              fontSize: 30,
-              textAlign: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 220,
-            }}
-          >
-            Comming Soon
-          </Text>
         </View>
       </ScrollView>
       <View style={styles.bottom}>
@@ -227,7 +216,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   product: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
   },
   htPrice: {
     flexDirection: "row",

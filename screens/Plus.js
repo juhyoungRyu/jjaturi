@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -20,11 +20,14 @@ import { auth, firestore } from "../firebase";
 import { storage } from "../firebase";
 import { LogBox } from "react-native";
 import { tk } from "../firebase";
+import Toast from "react-native-easy-toast";
+import { Dimensions } from "react-native";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
 const Plus = ({ route, navigation }) => {
   // const navigation = useNavigation();
+  const toastRef = useRef();
   const db = firestore;
 
   const [photo, setPhoto] = useState(null);
@@ -35,11 +38,17 @@ const Plus = ({ route, navigation }) => {
   const [uploading, setUploading] = useState(false);
   const [category, setCategory] = useState(false);
 
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
   const DBURL = "gs://jjaturi-d75ad.appspot.com/image/";
   const userName = auth.currentUser.displayName;
   const userNumber = auth.currentUser.photoURL.substring(0, 6);
   const userUrl = auth.currentUser.photoURL.substring(6);
 
+  const showCopyToast = useCallback(() => {
+    toastRef.current.show("게시글이 작성되었습니다");
+  }, []);
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -80,73 +89,78 @@ const Plus = ({ route, navigation }) => {
   };
 
   const upload = async () => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function () {
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", photo, true);
-      xhr.send(null);
-    });
+    if (cntPhoto == 0) {
+      Alert.alert("어라?", "사진을 추가해야 게시할 수 있어요!");
+    } else {
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function () {
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", photo, true);
+        xhr.send(null);
+      });
 
-    const dn = Date.now();
+      const dn = Date.now();
 
-    const ref = storage.ref().child("image/" + dn);
-    const snapshot = ref.put(blob);
+      const ref = storage.ref().child("image/" + dn);
+      const snapshot = ref.put(blob);
 
-    snapshot.on(
-      tk.STATE_CHANGED,
-      () => {
-        setUploading(true);
-      },
-      (error) => {
-        setUploading(false);
-        alert("오류!");
-        console.log(error);
-        blob.close();
-        return;
-      },
-      () => {
-        snapshot.snapshot.ref
-          .getDownloadURL()
-          .then(async (url) => {
-            setUploading(false);
-            blob.close();
-            console.log(url);
-            await db
-              .collection("product")
-              .add({
-                name: name,
-                price: price,
-                content: content,
-                date: new Date(),
-                photo: url,
-                gps: gps,
-                like: 0,
-                look: 0,
-                user: userName,
-                number: userNumber,
-                category: cat,
-                url: userUrl,
-              })
-              .then(() => {
-                navigation.replace("Home");
-              })
-              .catch((error) => {
-                alert("오류!");
-                console.log(error);
-              });
-          })
-          .catch((e) => {
-            console.log(e);
-            alert("오류!");
-          });
-      }
-    );
+      snapshot.on(
+        tk.STATE_CHANGED,
+        () => {
+          setUploading(true);
+        },
+        (error) => {
+          setUploading(false);
+          alert("오류!");
+          console.log(error);
+          Alert.alert("여기1");
+          blob.close();
+          return;
+        },
+        () => {
+          snapshot.snapshot.ref
+            .getDownloadURL()
+            .then(async (url) => {
+              setUploading(false);
+              blob.close();
+              console.log(url);
+              await db
+                .collection("product")
+                .add({
+                  name: name,
+                  price: price,
+                  content: content,
+                  date: new Date(),
+                  photo: url,
+                  gps: gps,
+                  like: 0,
+                  look: 0,
+                  user: userName,
+                  number: userNumber,
+                  category: cat,
+                  url: userUrl,
+                })
+                .then(() => {
+                  showCopyToast();
+                  navigation.replace("Home");
+                })
+                .catch((error) => {
+                  Alert.alert("여기2", error);
+                });
+            })
+            .catch((e) => {
+              console.log(e);
+              Alert.alert("여기3");
+            });
+        }
+      );
+    }
   };
 
   const onChangeTitle = (payload) => setName(payload);
@@ -157,9 +171,18 @@ const Plus = ({ route, navigation }) => {
   const { cat } = route.params;
   let catego = cat;
 
+  let cntPhoto = 0;
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
+        <Toast
+          ref={toastRef}
+          positionValue={windowHeight * 0.8}
+          fadeInDuration={200}
+          fadeOutDuration={1000}
+          style={{ backgroundColor: "#444" }}
+        />
         <View
           style={{
             width: "80%",
@@ -232,7 +255,13 @@ const Plus = ({ route, navigation }) => {
             )}
           </View>
 
-          <TouchableOpacity style={{ padding: 40 }} onPress={pickImage}>
+          <TouchableOpacity
+            style={{ padding: 40 }}
+            onPress={() => {
+              cntPhoto += 1;
+              pickImage();
+            }}
+          >
             <Text style={styles.take}>사진 고르기</Text>
           </TouchableOpacity>
           <View style={styles.nav}>

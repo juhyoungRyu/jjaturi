@@ -2,7 +2,14 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Image,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -55,7 +62,13 @@ const My = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.profile}>
-            <View style={styles.photo} />
+            <View style={styles.photo}>
+              <Image
+                source={{
+                  uri: "https://firebasestorage.googleapis.com/v0/b/jjaturi-d75ad.appspot.com/o/profile%2FGrey.png?alt=media&token=7c4328e4-af94-447a-82ca-9791260bfde8",
+                }}
+              />
+            </View>
             <View
               style={{
                 flexDirection: "column",

@@ -15,6 +15,7 @@ import {
   BackHandler,
   TouchableWithoutFeedback,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { auth, firestore } from "../firebase";
 
@@ -64,11 +65,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log(hope);
-          }}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Text style={styles.title}>JJATURI</Text>
         </TouchableOpacity>
         <View
@@ -165,7 +162,13 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.add}>
           <TouchableOpacity
             onPress={() => {
-              handlePlus();
+              const t = auth.currentUser.photoURL.substring(6, 7);
+              if (t == "i") {
+                Alert.alert("이런!", "먼저 오픈채팅 링크를 등록해주세요");
+              } else if (t == "h") {
+                console.log("등록 완료");
+                handlePlus();
+              }
             }}
           >
             <View style={{ marginLeft: 15 }}>

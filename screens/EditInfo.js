@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
   StyleSheet,
@@ -10,12 +11,29 @@ import {
   TouchableOpacity,
   TextInput,
   StatusBar,
+  Image,
+  Alert,
 } from "react-native";
 import { auth } from "../firebase";
 
 const EditInfo = ({ navigation }) => {
   const [name, setName] = useState(auth.currentUser.displayName);
   const [chat, setChat] = useState(auth.currentUser.photoURL.substring(6));
+  const [photo, setPhoto] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      setPhoto(result.uri);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -37,10 +55,19 @@ const EditInfo = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.photoCon}>
-        <View
-          style={{ padding: 62, backgroundColor: "grey", borderRadius: 60 }}
-        />
-        <TouchableOpacity style={{ marginTop: 20 }}>
+        {photo ? (
+          <Image source={{ uri: photo }} style={styles.pickSize} />
+        ) : (
+          <View style={styles.pickSize} />
+        )}
+
+        <TouchableOpacity
+          style={{ marginTop: 20 }}
+          onPress={() => {
+            Alert.alert("죄송합니다", "아직 준비중입니다 :)");
+            // pickImage();
+          }}
+        >
           <Text style={{ fontSize: 17, color: "rgb(72,156,203)" }}>
             사진 바꾸기
           </Text>
@@ -151,5 +178,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: "30%",
     marginTop: 40,
+  },
+  pickSize: {
+    backgroundColor: "grey",
+    width: 150,
+    height: 150,
+    borderRadius: 75,
   },
 });
